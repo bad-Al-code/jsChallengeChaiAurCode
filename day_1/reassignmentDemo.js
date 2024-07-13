@@ -12,7 +12,15 @@ console.log(initialValue); // "reassigned value"
 // Activity 5: Understanding const
 // Try reassigning a variable declared with const, and observe the error
 const constantValue = "Constant Value";
-constantValue = "aslkdjaskdj";
+// constantValue = "aslkdjaskdj";
 
-console.log(constantValue);
 // ERROR: connot reassign a varaible decalred with const
+
+try {
+  constantValue = "asdjalksjdklajsdkljsa";
+} catch (error) {
+  console.error("Error: Cannot reassign a variable devclared with const.");
+  console.error(error.message);
+}
+
+console.log(constantValue); // unchanged value
