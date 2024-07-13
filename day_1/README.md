@@ -4,10 +4,12 @@
 
 - **reassignmentDemo.js**: Script demonstrating variable reassignment behavior in JavaScript using let and const.
 - **variableTypesConsoleLog.js**: Script logging variable types and values for different data types in JavaScript.
+- **reassignmentDemo.ts**: TypeScript version of the reassignment demo script.
+- **variableTypesConsoleLog.ts**: TypeScript version of the variable types console log script.
 
 ## Description
 
-#### `variableTypesConsoleLog.js`
+#### `variableTypesConsoleLog.js` / `variableTypesConsoleLog.ts`
 
 This script demonstrates logging variable types and values for different data types in JavaScript:
 
@@ -15,7 +17,7 @@ This script demonstrates logging variable types and values for different data ty
 - **Activity 2**: Declares variables using const for a boolean.
 - **Activity 3**: Logs each variable's value and type using the typeof operator, including handling arrays and constants in JavaScript.
 
-#### `reassignmentDemo.js`
+#### `reassignmentDemo.js` / `reassignmentDemo.ts`
 
 This script illustrates how JavaScript handles variable reassignment using let and const:
 
