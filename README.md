@@ -16,7 +16,7 @@ The repository is organized as follows:
 └── README.md
 ```
 
-Credits
+## Credits
 Special thanks to [chaiaurcode](https://courses.chaicode.com/learn/home/30-days-of-Javascript-challenge) for providing the amazing 30-day JavaScript challenge that inspired this repository!
 
 ## How to Use
