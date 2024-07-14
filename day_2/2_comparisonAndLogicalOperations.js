@@ -1,3 +1,4 @@
+// 2. Comparison and logical operation script: Create a script the pcompares two numbers using different comparison operators and combines conditions using logical operators, logging the results
 let num1 = 10;
 let num2 = 5;
 
