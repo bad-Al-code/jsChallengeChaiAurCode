@@ -8,11 +8,11 @@ The repository is organized as follows:
 
 ```bash
 ├── day_1
-│   ├── README.md
-│   ├── reassignmentDemo.js
-│   ├── reassignmentDemo.ts
-│   ├── variableTypesConsoleLog.js
-│   └── variableTypesConsoleLog.ts
+│   ├── js
+│   │  │── filename.js
+│   ├── ts
+│   │  │── filename.ts
+│   └── README.md
 └── README.md
 ```
 
