@@ -1,4 +1,4 @@
-export const getCharacter = {
+export const gotCharacter = {
   name: "Jon Snow",
   title: "King in the North",
   house: "Stark",

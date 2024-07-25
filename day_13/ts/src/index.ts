@@ -2,7 +2,7 @@ import * as _ from "lodash";
 import axios from "axios";
 
 import { Post } from "./models/types";
-import { getCharacter } from "./getCharacter";
+import { gotCharacter } from "./utils/gotCharacter";
 import { addTwoNumbers } from "./mathUtils";
 import {
   getCharacterName,
@@ -15,7 +15,7 @@ import * as gotDetails from "./utils/gotDetails";
 const result = addTwoNumbers(1, 2);
 console.log(`The result is: ${result}`);
 
-console.log(getCharacter.fight());
+console.log(gotCharacter.fight());
 
 console.log(`Character: ${getCharacterName()}`);
 console.log(`Title: ${getCharacterTitle()}`);
