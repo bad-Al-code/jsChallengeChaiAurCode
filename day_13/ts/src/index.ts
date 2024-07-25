@@ -1,16 +1,16 @@
 import * as _ from "lodash";
 import axios from "axios";
 
-import { Post } from "./types";
+import { Post } from "./models/types";
 import { getCharacter } from "./getCharacter";
 import { addTwoNumbers } from "./mathUtils";
 import {
   getCharacterName,
   getCharacterTitle,
   getCharacterHouse,
-} from "./gotUtils";
-import greetCharacter from "./gotGreet";
-import * as gotDetails from "./gotDetails";
+} from "./utils/gotUtils";
+import greetCharacter from "./utils/gotGreet";
+import * as gotDetails from "./utils/gotDetails";
 
 const result = addTwoNumbers(1, 2);
 console.log(`The result is: ${result}`);
