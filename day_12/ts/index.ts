@@ -1,3 +1,26 @@
+interface DivisionParams {
+  numerator: number;
+  denominator: number;
+}
+
+class CustomError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "CustomError";
+  }
+}
+
+class ValidationError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "ValidationError";
+  }
+}
+
+function isError(error: unknown): error is Error {
+  return error instanceof Error;
+}
+
 function throwErrorFunction(): void {
   throw new Error("This is an intentional error");
 }
@@ -6,19 +29,12 @@ function handleError(): void {
   try {
     throwErrorFunction();
   } catch (error) {
-    if (error instanceof Error) {
+    if (isError(error)) {
       console.error("ERROR :: ", error.message);
     } else {
       console.error("ERROR :: ", "An unknown error occurred");
     }
   }
-}
-
-handleError();
-
-interface DivisionParams {
-  numerator: number;
-  denominator: number;
 }
 
 function divideNumbers({ numerator, denominator }: DivisionParams): number {
@@ -35,7 +51,7 @@ function handleDivision({ numerator, denominator }: DivisionParams): void {
       `The result of dividing ${numerator} by ${denominator} is ${result}`,
     );
   } catch (error) {
-    if (error instanceof Error) {
+    if (isError(error)) {
       console.error("An error occurred: ", error.message);
     } else {
       console.error("An error occurred: ", "An unknown error occurred");
@@ -43,15 +59,12 @@ function handleDivision({ numerator, denominator }: DivisionParams): void {
   }
 }
 
-const validParams: DivisionParams = { numerator: 10, denominator: 0 };
-handleDivision(validParams);
-
 function executeWithTryCatchFinally(): void {
   try {
     console.log("Entering try block");
     throw new Error("This is an intentional error");
   } catch (error) {
-    if (error instanceof Error) {
+    if (isError(error)) {
       console.log("Entering catch block");
       console.error("An error occurred: ", error.message);
     } else {
@@ -59,15 +72,6 @@ function executeWithTryCatchFinally(): void {
     }
   } finally {
     console.log("Entering finally block");
-  }
-}
-
-executeWithTryCatchFinally();
-
-class CustomError extends Error {
-  constructor(message: string) {
-    super(message);
-    this.name = "CustomError";
   }
 }
 
@@ -79,9 +83,9 @@ function handleCustomError(): void {
   try {
     functionThatThrowsCustomError();
   } catch (error) {
-    if (error instanceof CustomError) {
+    if (isError(error)) {
       console.error("Caught a custom error: ", error.message);
-    } else if (error instanceof Error) {
+    } else if (isError(error)) {
       console.error("Caught an unexpected error: ", error.message);
     } else {
       console.error(
@@ -91,15 +95,6 @@ function handleCustomError(): void {
     }
   } finally {
     console.log("Execution completed, finally block executed.");
-  }
-}
-
-handleCustomError();
-
-class ValidationError extends Error {
-  constructor(message: string) {
-    super(message);
-    this.name = "ValidationError";
   }
 }
 
@@ -127,8 +122,6 @@ function handleValidation(): void {
     console.log("Validation attempt completed");
   }
 }
-
-handleValidation();
 
 function randomPromise(): Promise<string> {
   return new Promise((resolve, reject) => {
@@ -175,15 +168,13 @@ async function handlePromise(): Promise<void> {
     const result = await unpredictablePromise();
     console.log(result);
   } catch (error) {
-    if (error instanceof Error) {
+    if (isError(error)) {
       console.error("An error occurred: ", error.message);
     } else {
       console.error("An error occurred: ", "An unknown error occurred");
     }
   }
 }
-
-handlePromise();
 
 function fetchData(): void {
   fetch("https://invalid.url/endpoint")
@@ -197,15 +188,13 @@ function fetchData(): void {
       console.log("Data received:", data);
     })
     .catch((error) => {
-      if (error instanceof Error) {
+      if (isError(error)) {
         console.error("An error occurred:", error.message);
       } else {
         console.error("An error occurred:", "An unknown error occurred");
       }
     });
 }
-
-fetchData();
 
 async function requestData(): Promise<void> {
   try {
@@ -218,7 +207,7 @@ async function requestData(): Promise<void> {
     const data = await response.json();
     console.log("Data received:", data);
   } catch (error) {
-    if (error instanceof Error) {
+    if (isError(error)) {
       console.error("An error occurred:", error.message);
     } else {
       console.error("An error occurred:", "An unknown error occurred");
@@ -226,4 +215,20 @@ async function requestData(): Promise<void> {
   }
 }
 
+handleError();
+handleDivision({ numerator: 10, denominator: 0 });
+executeWithTryCatchFinally();
+handleCustomError();
+handleValidation();
+randomPromise()
+  .then((result) => console.log(result))
+  .catch((error) => {
+    if (isError(error)) {
+      console.error("An error occurred: ", error.message);
+    } else {
+      console.error("An error occurred: ", "An unknown error occurred");
+    }
+  });
+handlePromise();
+fetchData();
 requestData();
