@@ -4,28 +4,6 @@
 
 This project demonstrates the use of TypeScript modules and various utilities. The file structure has been organized to enhance clarity and maintainability.
 
-## File Structure
-
-├── .gitignore
-├── dist
-│ └── bundle.js
-├── src
-│ ├── index.ts
-│ ├── mathUtils.ts
-│ ├── getCharacter.ts
-│ └── utils
-│ ├── gotDetails.ts
-│ ├── gotGreet.ts
-│ └── gotUtils.ts
-├── src/models
-│ └── types.ts
-├── index.html
-├── package-lock.json
-├── package.json
-├── README.md
-├── tsconfig.json
-└── webpack.config.js
-
 ### `src/`
 
 Contains all the source TypeScript files.
