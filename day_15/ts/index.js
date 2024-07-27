@@ -1,3 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.factorial = exports.houseStarkCollection = void 0;
+exports.houseStark = houseStark;
+exports.createCounter = createCounter;
+exports.uniqueIdGenerator = uniqueIdGenerator;
+exports.greetHouseMember = greetHouseMember;
+exports.createLoggers = createLoggers;
+exports.memoize = memoize;
 function houseStark() {
     var winterfell = "Winter is Coming";
     return function () {
@@ -53,7 +62,7 @@ var loggers = createLoggers();
 loggers[0]();
 loggers[1]();
 loggers[2]();
-var houseStarkCollection = (function () {
+exports.houseStarkCollection = (function () {
     var items = [];
     return {
         addItem: function (item) {
@@ -70,11 +79,11 @@ var houseStarkCollection = (function () {
         },
     };
 })();
-houseStarkCollection.addItem("Ned Stark");
-houseStarkCollection.addItem("Jon Snow");
-console.log(houseStarkCollection.listItems());
-houseStarkCollection.removeItem("Ned Stark");
-console.log(houseStarkCollection.listItems());
+exports.houseStarkCollection.addItem("Ned Stark");
+exports.houseStarkCollection.addItem("Jon Snow");
+console.log(exports.houseStarkCollection.listItems());
+exports.houseStarkCollection.removeItem("Ned Stark");
+console.log(exports.houseStarkCollection.listItems());
 function memoize(fn) {
     var cache = {};
     return function () {
@@ -93,13 +102,13 @@ function memoize(fn) {
         }
     };
 }
-var factorial = memoize(function (n) {
+exports.factorial = memoize(function (n) {
     if (n <= 1) {
         return 1;
     }
     else {
-        return n * factorial(n - 1);
+        return n * (0, exports.factorial)(n - 1);
     }
 });
-console.log(factorial(10));
-console.log(factorial(8));
+console.log((0, exports.factorial)(10));
+console.log((0, exports.factorial)(8));

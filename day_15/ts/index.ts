@@ -1,4 +1,4 @@
-function houseStark(): () => string {
+export function houseStark(): () => string {
   const winterfell: string = "Winter is Coming";
 
   return function (): string {
@@ -9,12 +9,12 @@ function houseStark(): () => string {
 const messageFromStark = houseStark();
 console.log(messageFromStark());
 
-interface Counter {
+export interface Counter {
   increment(): void;
   getCurrentCount(): number;
 }
 
-function createCounter(): Counter {
+export function createCounter(): Counter {
   let count: number = 0;
 
   return {
@@ -32,7 +32,7 @@ counter.increment();
 counter.increment();
 console.log(counter.getCurrentCount());
 
-function uniqueIdGenerator(): () => string {
+export function uniqueIdGenerator(): () => string {
   let lastId: number = 0;
 
   return function (): string {
@@ -45,7 +45,7 @@ const generateId = uniqueIdGenerator();
 console.log(generateId());
 console.log(generateId());
 
-function greetHouseMember(name: string): () => string {
+export function greetHouseMember(name: string): () => string {
   return function (): string {
     return `Hello, ${name} of House Stark!`;
   };
@@ -54,7 +54,7 @@ function greetHouseMember(name: string): () => string {
 const greetNed = greetHouseMember("Ned");
 console.log(greetNed());
 
-function createLoggers(): Array<() => void> {
+export function createLoggers(): Array<() => void> {
   const loggers: Array<() => void> = [];
 
   for (let i = 0; i < 5; i++) {
@@ -75,13 +75,13 @@ loggers[0]();
 loggers[1]();
 loggers[2]();
 
-interface ItemCollection {
+export interface ItemCollection {
   addItem(item: string): void;
   removeItem(item: string): void;
-  listItems(): string[];
+  listItems(): ReadonlyArray<string>;
 }
 
-const houseStarkCollection: ItemCollection = (function () {
+export const houseStarkCollection: ItemCollection = (function () {
   const items: string[] = [];
 
   return {
@@ -106,7 +106,7 @@ console.log(houseStarkCollection.listItems());
 houseStarkCollection.removeItem("Ned Stark");
 console.log(houseStarkCollection.listItems());
 
-function memoize<T extends (...args: any[]) => any>(fn: T): T {
+export function memoize<T extends (...args: any[]) => any>(fn: T): T {
   const cache: { [key: string]: any } = {};
 
   return function (...args: Parameters<T>): ReturnType<T> {
@@ -121,7 +121,7 @@ function memoize<T extends (...args: any[]) => any>(fn: T): T {
   } as T;
 }
 
-const factorial = memoize(function (n: number): number {
+export const factorial = memoize(function (n: number): number {
   if (n <= 1) {
     return 1;
   } else {
