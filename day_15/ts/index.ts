@@ -1,7 +1,7 @@
-function houseStark() {
-  const winterfell = "Winter is Coming";
+function houseStark(): () => string {
+  const winterfell: string = "Winter is Coming";
 
-  return function () {
+  return function (): string {
     return winterfell;
   };
 }
@@ -9,8 +9,13 @@ function houseStark() {
 const messageFromStark = houseStark();
 console.log(messageFromStark());
 
-function createCounter() {
-  let count = 0;
+interface Counter {
+  increment(): void;
+  getCurrentCount(): number;
+}
+
+function createCounter(): Counter {
+  let count: number = 0;
 
   return {
     increment() {
@@ -27,10 +32,10 @@ counter.increment();
 counter.increment();
 console.log(counter.getCurrentCount());
 
-function uniqueIdGenerator() {
-  let lastId = 0;
+function uniqueIdGenerator(): () => string {
+  let lastId: number = 0;
 
-  return function () {
+  return function (): string {
     lastId++;
     return `GOT-${lastId}`;
   };
@@ -40,8 +45,8 @@ const generateId = uniqueIdGenerator();
 console.log(generateId());
 console.log(generateId());
 
-function greetHouseMember(name: string) {
-  return function () {
+function greetHouseMember(name: string): () => string {
+  return function (): string {
     return `Hello, ${name} of House Stark!`;
   };
 }
@@ -49,12 +54,12 @@ function greetHouseMember(name: string) {
 const greetNed = greetHouseMember("Ned");
 console.log(greetNed());
 
-function createLoggers() {
+function createLoggers(): Array<() => void> {
   const loggers: Array<() => void> = [];
 
   for (let i = 0; i < 5; i++) {
     loggers.push(
-      (function (index) {
+      (function (index: number) {
         return function () {
           console.log(index);
         };
@@ -70,7 +75,13 @@ loggers[0]();
 loggers[1]();
 loggers[2]();
 
-const houseStarkCollection = (function () {
+interface ItemCollection {
+  addItem(item: string): void;
+  removeItem(item: string): void;
+  listItems(): string[];
+}
+
+const houseStarkCollection: ItemCollection = (function () {
   const items: string[] = [];
 
   return {
@@ -95,10 +106,10 @@ console.log(houseStarkCollection.listItems());
 houseStarkCollection.removeItem("Ned Stark");
 console.log(houseStarkCollection.listItems());
 
-function memoize(fn: Function) {
+function memoize<T extends (...args: any[]) => any>(fn: T): T {
   const cache: { [key: string]: any } = {};
 
-  return function (...args: any[]) {
+  return function (...args: Parameters<T>): ReturnType<T> {
     const key = JSON.stringify(args);
     if (cache[key] !== undefined) {
       return cache[key];
@@ -107,7 +118,7 @@ function memoize(fn: Function) {
       cache[key] = result;
       return result;
     }
-  };
+  } as T;
 }
 
 const factorial = memoize(function (n: number): number {
