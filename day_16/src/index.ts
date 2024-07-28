@@ -1,3 +1,9 @@
+/**
+ * Calculates the factorial of a given non-negative integer.
+ * @param n - A non-negative integer
+ * @returns The factorial of the given number
+ * @throws Will throw an error if n is a negative number or not an integer
+ */
 export function calculateFactorial(n: number): number {
   if (n < 0) {
     throw new Error(
@@ -37,6 +43,12 @@ testValues.forEach((value) => {
   }
 });
 
+/**
+ * Calculates the nth Fibonacci number.
+ * @param n - A non-negative integer
+ * @returns The nth Fibonacci number
+ * @throws Will throw an error if n is a negative number or not an integer
+ */
 export function calculateFibonacci(n: number): number {
   if (n < 0) {
     throw new Error(
@@ -79,6 +91,12 @@ fibonacciTestValues.forEach((value) => {
   }
 });
 
+/**
+ * Calculates the sum of all elements in an array.
+ * @param arr - An array of numbers
+ * @returns The sum of all elements in the array
+ * @throws Will throw an error if arr is not an array or contains non-number elements
+ */
 export function calculateSum(arr: number[]): number {
   if (!Array.isArray(arr)) {
     throw new Error(
@@ -128,6 +146,12 @@ sumTestValues.forEach((value) => {
   }
 });
 
+/**
+ * Finds the maximum element in an array.
+ * @param arr - An array of numbers
+ * @returns The maximum element in the array
+ * @throws Will throw an error if arr is not an array, is empty, or contains non-number elements
+ */
 export function findMax(arr: number[]): number {
   if (!Array.isArray(arr)) {
     throw new Error(
@@ -180,6 +204,12 @@ maxTestValues.forEach((value) => {
   }
 });
 
+/**
+ * Reverses a given string.
+ * @param str - The string to reverse
+ * @returns The reversed string
+ * @throws Will throw an error if str is not a string
+ */
 export function reverseString(str: string): string {
   if (typeof str !== "string") {
     throw new Error(
@@ -221,6 +251,12 @@ stringTestValues.forEach((value) => {
   }
 });
 
+/**
+ * Checks if a given string is a palindrome.
+ * @param str - The string to check
+ * @returns True if the string is a palindrome, false otherwise
+ * @throws Will throw an error if str is not a string
+ */
 export function isPalindrome(str: string): boolean {
   if (typeof str !== "string") {
     throw new Error(
@@ -266,6 +302,15 @@ palindromeTestValues.forEach((value) => {
   }
 });
 
+/**
+ * Performs a binary search on a sorted array.
+ * @param arr - A sorted array of numbers
+ * @param target - The number to search for
+ * @param left - The starting index (default is 0)
+ * @param right - The ending index (default is arr.length - 1)
+ * @returns The index of the target in the array, or -1 if the target is not found
+ * @throws Will throw an error if arr is not a sorted array
+ */
 export function binarySearch(
   arr: number[],
   target: number,
@@ -329,6 +374,14 @@ searchTestValues.forEach(({ arr, target }) => {
   }
 });
 
+/**
+ * Counts the occurrence of a target element in an array.
+ * @param arr - The array of elements
+ * @param target - The element to count
+ * @param index - The current index (default is 0)
+ * @returns The count of the target element in the array
+ * @throws Will throw an error if arr is not an array
+ */
 export function countOccurrences(arr: any[], target: any, index = 0): number {
   if (!Array.isArray(arr)) {
     throw new Error(
@@ -388,6 +441,11 @@ export class TreeNode {
   }
 }
 
+/**
+ * Performs an in-order traversal of a binary tree.
+ * @param node - The root node of the binary tree
+ * @returns void
+ */
 export function inOrderTraversal(node: TreeNode | null): void {
   if (node === null) {
     return;
@@ -411,6 +469,11 @@ root.right.right = new TreeNode(7);
 console.log("In-order traversal of the binary tree:");
 inOrderTraversal(root);
 
+/**
+ * Calculates the depth of a binary tree.
+ * @param node - The root node of the binary tree
+ * @returns The depth of the binary tree
+ */
 export function calculateDepth(node: TreeNode | null): number {
   if (node === null) {
     return 0;
