@@ -196,7 +196,7 @@ const reversedString = reverseString(originalString);
 console.log(`Original String: ${originalString}`);
 console.log(`Reversed String: ${reversedString}`);
 
-class Queue<T> {
+export class Queue<T> {
   private items: T[];
 
   constructor() {
@@ -243,7 +243,7 @@ class Queue<T> {
       return;
     }
 
-    console.log("Queue:", this.items.join(" <- "));
+    console.log(`Queue: ${this.items.join(" <- ")}`);
   }
 }
 
