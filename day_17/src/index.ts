@@ -470,7 +470,7 @@ export class Graph {
   }
 }
 
-class ShortestPathFinder {
+export class ShortestPathFinder {
   private graph: Graph;
 
   constructor(graph: Graph) {
