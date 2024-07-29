@@ -176,7 +176,7 @@ stack.pop();
 stack.pop();
 stack.display();
 
-function reverseString(str: string): string {
+export function reverseString(str: string): string {
   const stack = new Stack<string>();
 
   for (const char of str) {
