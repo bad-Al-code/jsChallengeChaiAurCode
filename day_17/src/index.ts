@@ -295,7 +295,7 @@ printerQueue.processPrintJob();
 printerQueue.processPrintJob();
 printerQueue.displayJobs();
 
-class TreeNode<T> {
+export class TreeNode<T> {
   public value: T;
   public left: TreeNode<T> | null;
   public right: TreeNode<T> | null;
