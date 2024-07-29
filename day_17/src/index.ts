@@ -343,7 +343,7 @@ console.log(`Root Node: ${root.value}`);
 console.log(`Left Child of Root: ${root.left?.value}`);
 console.log(`Right Child of Root: ${root.right?.value}`);
 
-class BinaryTree<T> {
+export class BinaryTree<T> {
   private root: TreeNode<T> | null = null;
 
   public insert(value: T): void {
