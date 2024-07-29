@@ -119,7 +119,7 @@ list.displayNodes();
 list.removeNode();
 list.displayNodes();
 
-class Stack<T> {
+export class Stack<T> {
   private items: T[];
 
   constructor() {
@@ -161,7 +161,7 @@ class Stack<T> {
       console.log("The stack is empty. Hear Me Roar.");
       return;
     }
-    console.log("Stack:", this.items.join(" -> "));
+    console.log(`Stack: ${this.items.join(" -> ")}`);
   }
 }
 
