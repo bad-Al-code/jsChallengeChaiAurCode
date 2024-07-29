@@ -101,6 +101,13 @@ export class LinkedList<T> {
     nodes += "null";
     console.log(nodes);
   }
+
+  public getHead(): LinkedListNode<T> | null {
+    return this.head;
+  }
+  public getTail(): LinkedListNode<T> | null {
+    return this.tail;
+  }
 }
 
 const list = new LinkedList<number>();
@@ -112,7 +119,7 @@ list.displayNodes();
 list.removeNode();
 list.displayNodes();
 
-class Stack<T> {
+export class Stack<T> {
   private items: T[];
 
   constructor() {
@@ -154,7 +161,7 @@ class Stack<T> {
       console.log("The stack is empty. Hear Me Roar.");
       return;
     }
-    console.log("Stack:", this.items.join(" -> "));
+    console.log(`Stack: ${this.items.join(" -> ")}`);
   }
 }
 
@@ -169,7 +176,7 @@ stack.pop();
 stack.pop();
 stack.display();
 
-function reverseString(str: string): string {
+export function reverseString(str: string): string {
   const stack = new Stack<string>();
 
   for (const char of str) {
@@ -189,7 +196,7 @@ const reversedString = reverseString(originalString);
 console.log(`Original String: ${originalString}`);
 console.log(`Reversed String: ${reversedString}`);
 
-class Queue<T> {
+export class Queue<T> {
   private items: T[];
 
   constructor() {
@@ -236,7 +243,7 @@ class Queue<T> {
       return;
     }
 
-    console.log("Queue:", this.items.join(" <- "));
+    console.log(`Queue: ${this.items.join(" <- ")}`);
   }
 }
 
@@ -251,7 +258,7 @@ queue.dequeue();
 queue.dequeue();
 queue.display();
 
-class PrinterQueue {
+export class PrinterQueue {
   private queue: Queue<string>;
 
   constructor() {
@@ -288,7 +295,7 @@ printerQueue.processPrintJob();
 printerQueue.processPrintJob();
 printerQueue.displayJobs();
 
-class TreeNode<T> {
+export class TreeNode<T> {
   public value: T;
   public left: TreeNode<T> | null;
   public right: TreeNode<T> | null;
@@ -336,7 +343,7 @@ console.log(`Root Node: ${root.value}`);
 console.log(`Left Child of Root: ${root.left?.value}`);
 console.log(`Right Child of Root: ${root.right?.value}`);
 
-class BinaryTree<T> {
+export class BinaryTree<T> {
   private root: TreeNode<T> | null = null;
 
   public insert(value: T): void {
@@ -398,7 +405,7 @@ binaryTree.insert(18);
 
 binaryTree.inOrderTraversal();
 
-class Graph {
+export class Graph {
   private adjacencyList: Map<string, Set<string>>;
 
   constructor() {
@@ -463,7 +470,7 @@ class Graph {
   }
 }
 
-class ShortestPathFinder {
+export class ShortestPathFinder {
   private graph: Graph;
 
   constructor(graph: Graph) {
