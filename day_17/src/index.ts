@@ -258,7 +258,7 @@ queue.dequeue();
 queue.dequeue();
 queue.display();
 
-class PrinterQueue {
+export class PrinterQueue {
   private queue: Queue<string>;
 
   constructor() {
