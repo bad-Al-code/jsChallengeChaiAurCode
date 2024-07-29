@@ -405,7 +405,7 @@ binaryTree.insert(18);
 
 binaryTree.inOrderTraversal();
 
-class Graph {
+export class Graph {
   private adjacencyList: Map<string, Set<string>>;
 
   constructor() {
