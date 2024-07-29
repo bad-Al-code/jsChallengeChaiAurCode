@@ -101,6 +101,13 @@ export class LinkedList<T> {
     nodes += "null";
     console.log(nodes);
   }
+
+  public getHead(): LinkedListNode<T> | null {
+    return this.head;
+  }
+  public getTail(): LinkedListNode<T> | null {
+    return this.tail;
+  }
 }
 
 const list = new LinkedList<number>();
