@@ -203,3 +203,23 @@ const longestSubstring1 =
 console.log(
   `Longest unique substring in '${longestString}': ${longestSubstring1}`,
 );
+
+export class ArrayRotator {
+  public static rotate(array: string[], k: number): string[] {
+    const n = array.length;
+    if (n === 0 || k % n === 0) return array;
+    k = k % n;
+    return array.slice(-k).concat(array.slice(0, n - k));
+  }
+}
+
+const gotArray1 = [
+  "Stark",
+  "Lannister",
+  "Targaryen",
+  "Baratheon",
+  "Greyjoy",
+  "Martell",
+];
+const rotatedArray1 = ArrayRotator.rotate(gotArray1, 2);
+console.log(`Array rotated by 2 positions: ${rotatedArray1}`);

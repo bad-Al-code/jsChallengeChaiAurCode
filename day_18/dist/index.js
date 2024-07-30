@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.LongestUniqueSubstring = exports.CharacterCounter = exports.BinarySearch = exports.LinearSearch = exports.QuickSort = exports.SelectionSort = exports.BubbleSort = void 0;
+exports.ArrayRotator = exports.LongestUniqueSubstring = exports.CharacterCounter = exports.BinarySearch = exports.LinearSearch = exports.QuickSort = exports.SelectionSort = exports.BubbleSort = void 0;
 class BubbleSort {
     static sort(array) {
         let n = array.length;
@@ -172,3 +172,21 @@ exports.LongestUniqueSubstring = LongestUniqueSubstring;
 const longestString = "Daenerys Targaryen";
 const longestSubstring1 = LongestUniqueSubstring.findLongestSubstring(longestString);
 console.log(`Longest unique substring in '${longestString}': ${longestSubstring1}`);
+class ArrayRotator {
+    static rotate(array, k) {
+        const n = array.length;
+        k = k % n;
+        return array.slice(-k).concat(array.slice(0, n - k));
+    }
+}
+exports.ArrayRotator = ArrayRotator;
+const gotArray1 = [
+    "Stark",
+    "Lannister",
+    "Targaryen",
+    "Baratheon",
+    "Greyjoy",
+    "Martell",
+];
+const rotatedArray1 = ArrayRotator.rotate(gotArray1, 2);
+console.log(`Array rotated by 2 positions: ${rotatedArray1}`);
