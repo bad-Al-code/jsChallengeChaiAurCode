@@ -166,3 +166,40 @@ export class CharacterCounter {
 const gotString1 = "Winter is coming";
 const count1 = CharacterCounter.countOccurrences(gotString1);
 console.log(`Character occurrences in '${gotString1}':`, count1);
+
+export class LongestUniqueSubstring {
+  public static findLongestSubstring(input: string): string {
+    let maxLength = 0;
+    let start = 0;
+    let longestSubstring = "";
+    const seenChars: Record<string, number> = {};
+
+    for (let end = 0; end < input.length; end++) {
+      const currentChar = input[end];
+
+      if (
+        seenChars[currentChar] !== undefined &&
+        seenChars[currentChar] >= start
+      ) {
+        start = seenChars[currentChar] + 1;
+      }
+
+      seenChars[currentChar] = end;
+      const currentLength = end - start + 1;
+
+      if (currentLength > maxLength) {
+        maxLength = currentLength;
+        longestSubstring = input.slice(start, end + 1);
+      }
+    }
+
+    return longestSubstring;
+  }
+}
+
+const longestString = "Daenerys Targaryen";
+const longestSubstring1 =
+  LongestUniqueSubstring.findLongestSubstring(longestString);
+console.log(
+  `Longest unique substring in '${longestString}': ${longestSubstring1}`,
+);

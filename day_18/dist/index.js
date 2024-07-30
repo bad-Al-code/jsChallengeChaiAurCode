@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CharacterCounter = exports.BinarySearch = exports.LinearSearch = exports.QuickSort = exports.SelectionSort = exports.BubbleSort = void 0;
+exports.LongestUniqueSubstring = exports.CharacterCounter = exports.BinarySearch = exports.LinearSearch = exports.QuickSort = exports.SelectionSort = exports.BubbleSort = void 0;
 class BubbleSort {
     static sort(array) {
         let n = array.length;
@@ -146,3 +146,29 @@ exports.CharacterCounter = CharacterCounter;
 const gotString1 = "Winter is coming";
 const count1 = CharacterCounter.countOccurrences(gotString1);
 console.log(`Character occurrences in '${gotString1}':`, count1);
+class LongestUniqueSubstring {
+    static findLongestSubstring(input) {
+        let maxLength = 0;
+        let start = 0;
+        let longestSubstring = "";
+        const seenChars = {};
+        for (let end = 0; end < input.length; end++) {
+            const currentChar = input[end];
+            if (seenChars[currentChar] !== undefined &&
+                seenChars[currentChar] >= start) {
+                start = seenChars[currentChar] + 1;
+            }
+            seenChars[currentChar] = end;
+            const currentLength = end - start + 1;
+            if (currentLength > maxLength) {
+                maxLength = currentLength;
+                longestSubstring = input.slice(start, end + 1);
+            }
+        }
+        return longestSubstring;
+    }
+}
+exports.LongestUniqueSubstring = LongestUniqueSubstring;
+const longestString = "Daenerys Targaryen";
+const longestSubstring1 = LongestUniqueSubstring.findLongestSubstring(longestString);
+console.log(`Longest unique substring in '${longestString}': ${longestSubstring1}`);
