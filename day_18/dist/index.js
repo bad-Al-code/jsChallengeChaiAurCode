@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.BinarySearch = exports.LinearSearch = exports.QuickSort = exports.SelectionSort = exports.BubbleSort = void 0;
+exports.CharacterCounter = exports.BinarySearch = exports.LinearSearch = exports.QuickSort = exports.SelectionSort = exports.BubbleSort = void 0;
 class BubbleSort {
     static sort(array) {
         let n = array.length;
@@ -133,3 +133,16 @@ const binarySearchArray = [
 const binarySearchTarget1 = "Lannister";
 const binarySearchIndex1 = BinarySearch.search(binarySearchArray, binarySearchTarget1);
 console.log(`Index of ${binarySearchTarget1} in binary search: ${binarySearchIndex1}`);
+class CharacterCounter {
+    static countOccurrences(input) {
+        const charCount = {};
+        for (const char of input) {
+            charCount[char] = (charCount[char] || 0) + 1;
+        }
+        return charCount;
+    }
+}
+exports.CharacterCounter = CharacterCounter;
+const gotString1 = "Winter is coming";
+const count1 = CharacterCounter.countOccurrences(gotString1);
+console.log(`Character occurrences in '${gotString1}':`, count1);

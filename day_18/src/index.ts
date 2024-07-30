@@ -150,3 +150,19 @@ const binarySearchIndex1 = BinarySearch.search(
 console.log(
   `Index of ${binarySearchTarget1} in binary search: ${binarySearchIndex1}`,
 );
+
+export class CharacterCounter {
+  public static countOccurrences(input: string): Record<string, number> {
+    const charCount: Record<string, number> = {};
+
+    for (const char of input) {
+      charCount[char] = (charCount[char] || 0) + 1;
+    }
+
+    return charCount;
+  }
+}
+
+const gotString1 = "Winter is coming";
+const count1 = CharacterCounter.countOccurrences(gotString1);
+console.log(`Character occurrences in '${gotString1}':`, count1);
