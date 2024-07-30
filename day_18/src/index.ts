@@ -85,3 +85,26 @@ const quickUnsortedArray = [
 ];
 const quickSortedArray = QuickSort.sort(quickUnsortedArray);
 console.log(`Quick Sorted array: ${quickSortedArray}`);
+
+export class LinearSearch {
+  public static search(array: string[], target: string): number {
+    for (let i = 0; i < array.length; i++) {
+      if (array[i] === target) {
+        return i;
+      }
+    }
+    return -1;
+  }
+}
+
+const houseArray = [
+  "Stark",
+  "Lannister",
+  "Targaryen",
+  "Baratheon",
+  "Greyjoy",
+  "Martell",
+];
+const targetHouse1 = "Lannister";
+const index1 = LinearSearch.search(houseArray, targetHouse1);
+console.log(`Index of ${targetHouse1} using LinearSearch: ${index1}`);

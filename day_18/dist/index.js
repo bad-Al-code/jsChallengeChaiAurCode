@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.QuickSort = exports.SelectionSort = exports.BubbleSort = void 0;
+exports.LinearSearch = exports.QuickSort = exports.SelectionSort = exports.BubbleSort = void 0;
 class BubbleSort {
     static sort(array) {
         let n = array.length;
@@ -80,3 +80,25 @@ const quickUnsortedArray = [
 ];
 const quickSortedArray = QuickSort.sort(quickUnsortedArray);
 console.log(`Quick Sorted array: ${quickSortedArray}`);
+class LinearSearch {
+    static search(array, target) {
+        for (let i = 0; i < array.length; i++) {
+            if (array[i] === target) {
+                return i;
+            }
+        }
+        return -1;
+    }
+}
+exports.LinearSearch = LinearSearch;
+const houseArray = [
+    "Stark",
+    "Lannister",
+    "Targaryen",
+    "Baratheon",
+    "Greyjoy",
+    "Martell",
+];
+const targetHouse1 = "Lannister";
+const index1 = LinearSearch.search(houseArray, targetHouse1);
+console.log(`Index of ${targetHouse1} using LinearSearch: ${index1}`);
