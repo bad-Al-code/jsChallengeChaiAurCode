@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SelectionSort = exports.BubbleSort = void 0;
+exports.QuickSort = exports.SelectionSort = exports.BubbleSort = void 0;
 class BubbleSort {
     static sort(array) {
         let n = array.length;
@@ -19,12 +19,9 @@ class BubbleSort {
     }
 }
 exports.BubbleSort = BubbleSort;
-const unsortedArray1 = [64, 34, 25, 12, 22, 11, 90];
-const sortedArray1 = BubbleSort.sort(unsortedArray1);
-console.log(`Sorted array 1: ${sortedArray1}`);
-const unsortedArray2 = [5, 3, 8, 4, 2];
-const sortedArray2 = BubbleSort.sort(unsortedArray2);
-console.log(`Sorted array 2: ${sortedArray2}`);
+const bubbleUnsortedArray = [64, 34, 25, 12, 22, 11, 90];
+const bubbleSortedArray = BubbleSort.sort(bubbleUnsortedArray);
+console.log(`Bubble Sorted array: ${bubbleSortedArray}`);
 class SelectionSort {
     static sort(arr) {
         let n = arr.length;
@@ -52,4 +49,34 @@ const selectionUnsortedArray = [
     "Martell",
 ];
 const selectionSortedArray = SelectionSort.sort(selectionUnsortedArray);
-console.log(`Selection Sorted array 1: ${selectionSortedArray}`);
+console.log(`Selection Sorted array: ${selectionSortedArray}`);
+class QuickSort {
+    static sort(array) {
+        if (array.length <= 1) {
+            return array;
+        }
+        const pivot = array[array.length - 1];
+        const left = [];
+        const right = [];
+        for (let i = 0; i < array.length - 1; i++) {
+            if (array[i] < pivot) {
+                left.push(array[i]);
+            }
+            else {
+                right.push(array[i]);
+            }
+        }
+        return [...QuickSort.sort(left), pivot, ...QuickSort.sort(right)];
+    }
+}
+exports.QuickSort = QuickSort;
+const quickUnsortedArray = [
+    "Stark",
+    "Lannister",
+    "Targaryen",
+    "Baratheon",
+    "Greyjoy",
+    "Martell",
+];
+const quickSortedArray = QuickSort.sort(quickUnsortedArray);
+console.log(`Quick Sorted array: ${quickSortedArray}`);
