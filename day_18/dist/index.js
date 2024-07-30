@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Fibonacci = exports.ArrayMerger = exports.ArrayRotator = exports.LongestUniqueSubstring = exports.CharacterCounter = exports.BinarySearch = exports.LinearSearch = exports.QuickSort = exports.SelectionSort = exports.BubbleSort = void 0;
+exports.Knapsack = exports.Fibonacci = exports.ArrayMerger = exports.ArrayRotator = exports.LongestUniqueSubstring = exports.CharacterCounter = exports.BinarySearch = exports.LinearSearch = exports.QuickSort = exports.SelectionSort = exports.BubbleSort = void 0;
 class BubbleSort {
     static sort(array) {
         let n = array.length;
@@ -237,3 +237,31 @@ exports.Fibonacci = Fibonacci;
 const position1 = 4;
 const fibValue1 = Fibonacci.calculate(position1);
 console.log(`Fibonacci value at position ${position1}: ${fibValue1}`);
+class Knapsack {
+    static solveKnapsack(items, capacity) {
+        const n = items.length;
+        const dp = Array.from({ length: n + 1 }, () => Array(capacity + 1).fill(0));
+        for (let i = 1; i <= n; i++) {
+            const { weight, value } = items[i - 1];
+            for (let w = 1; w <= capacity; w++) {
+                if (weight <= w) {
+                    dp[i][w] = Math.max(dp[i - 1][w], dp[i - 1][w - weight] + value);
+                }
+                else {
+                    dp[i][w] = dp[i - 1][w];
+                }
+            }
+        }
+        return dp[n][capacity];
+    }
+}
+exports.Knapsack = Knapsack;
+const items = [
+    { name: "Dragon Glass", weight: 1, value: 1500 },
+    { name: "Valyrian Steel", weight: 3, value: 3000 },
+    { name: "Golden Crown", weight: 4, value: 2000 },
+    { name: "Direwolf", weight: 2, value: 1800 },
+];
+const capacity = 5;
+const maxValue = Knapsack.solveKnapsack(items, capacity);
+console.log(`Maximum value for knapsack capacity ${capacity}: ${maxValue}`);
