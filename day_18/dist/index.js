@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ArrayRotator = exports.LongestUniqueSubstring = exports.CharacterCounter = exports.BinarySearch = exports.LinearSearch = exports.QuickSort = exports.SelectionSort = exports.BubbleSort = void 0;
+exports.ArrayMerger = exports.ArrayRotator = exports.LongestUniqueSubstring = exports.CharacterCounter = exports.BinarySearch = exports.LinearSearch = exports.QuickSort = exports.SelectionSort = exports.BubbleSort = void 0;
 class BubbleSort {
     static sort(array) {
         let n = array.length;
@@ -175,6 +175,8 @@ console.log(`Longest unique substring in '${longestString}': ${longestSubstring1
 class ArrayRotator {
     static rotate(array, k) {
         const n = array.length;
+        if (n === 0 || k % n === 0)
+            return array;
         k = k % n;
         return array.slice(-k).concat(array.slice(0, n - k));
     }
@@ -190,3 +192,33 @@ const gotArray1 = [
 ];
 const rotatedArray1 = ArrayRotator.rotate(gotArray1, 2);
 console.log(`Array rotated by 2 positions: ${rotatedArray1}`);
+class ArrayMerger {
+    static mergeSortedArrays(array1, array2) {
+        const mergedArray = [];
+        let i = 0, j = 0;
+        while (i < array1.length && j < array2.length) {
+            if (array1[i] < array2[j]) {
+                mergedArray.push(array1[i]);
+                i++;
+            }
+            else {
+                mergedArray.push(array2[j]);
+                j++;
+            }
+        }
+        while (i < array1.length) {
+            mergedArray.push(array1[i]);
+            i++;
+        }
+        while (j < array2.length) {
+            mergedArray.push(array2[j]);
+            j++;
+        }
+        return mergedArray;
+    }
+}
+exports.ArrayMerger = ArrayMerger;
+const array1 = ["Arya", "Bran", "Jon", "Sansa"];
+const array2 = ["Daenerys", "Jaime", "Tyrion"];
+const mergedArray = ArrayMerger.mergeSortedArrays(array1, array2);
+console.log(`Merged sorted array: ${mergedArray}`);
