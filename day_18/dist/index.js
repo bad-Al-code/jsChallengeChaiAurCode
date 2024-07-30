@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ArrayMerger = exports.ArrayRotator = exports.LongestUniqueSubstring = exports.CharacterCounter = exports.BinarySearch = exports.LinearSearch = exports.QuickSort = exports.SelectionSort = exports.BubbleSort = void 0;
+exports.Fibonacci = exports.ArrayMerger = exports.ArrayRotator = exports.LongestUniqueSubstring = exports.CharacterCounter = exports.BinarySearch = exports.LinearSearch = exports.QuickSort = exports.SelectionSort = exports.BubbleSort = void 0;
 class BubbleSort {
     static sort(array) {
         let n = array.length;
@@ -222,3 +222,18 @@ const array1 = ["Arya", "Bran", "Jon", "Sansa"];
 const array2 = ["Daenerys", "Jaime", "Tyrion"];
 const mergedArray = ArrayMerger.mergeSortedArrays(array1, array2);
 console.log(`Merged sorted array: ${mergedArray}`);
+class Fibonacci {
+    static calculate(n) {
+        if (n <= 1)
+            return n;
+        const dp = [0, 1];
+        for (let i = 2; i <= n; i++) {
+            dp[i] = dp[i - 1] + dp[i - 2];
+        }
+        return dp[n];
+    }
+}
+exports.Fibonacci = Fibonacci;
+const position1 = 4;
+const fibValue1 = Fibonacci.calculate(position1);
+console.log(`Fibonacci value at position ${position1}: ${fibValue1}`);

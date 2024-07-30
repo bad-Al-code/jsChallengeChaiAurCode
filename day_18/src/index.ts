@@ -261,3 +261,19 @@ const array1 = ["Arya", "Bran", "Jon", "Sansa"];
 const array2 = ["Daenerys", "Jaime", "Tyrion"];
 const mergedArray = ArrayMerger.mergeSortedArrays(array1, array2);
 console.log(`Merged sorted array: ${mergedArray}`);
+
+export class Fibonacci {
+  public static calculate(n: number): number {
+    if (n <= 1) return n;
+
+    const dp: number[] = [0, 1];
+    for (let i = 2; i <= n; i++) {
+      dp[i] = dp[i - 1] + dp[i - 2];
+    }
+    return dp[n];
+  }
+}
+
+const position1 = 4;
+const fibValue1 = Fibonacci.calculate(position1);
+console.log(`Fibonacci value at position ${position1}: ${fibValue1}`);
