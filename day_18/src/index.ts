@@ -97,7 +97,7 @@ export class LinearSearch {
   }
 }
 
-const houseArray = [
+const linearSearchArray = [
   "Stark",
   "Lannister",
   "Targaryen",
@@ -105,6 +105,48 @@ const houseArray = [
   "Greyjoy",
   "Martell",
 ];
-const targetHouse1 = "Lannister";
-const index1 = LinearSearch.search(houseArray, targetHouse1);
-console.log(`Index of ${targetHouse1} using LinearSearch: ${index1}`);
+const linearSearchTarget1 = "Lannister";
+const linearSearchIndex1 = LinearSearch.search(
+  linearSearchArray,
+  linearSearchTarget1,
+);
+console.log(
+  `Index of ${linearSearchTarget1} in linear search: ${linearSearchIndex1}`,
+);
+
+export class BinarySearch {
+  public static search(array: string[], target: string): number {
+    let left = 0;
+    let right = array.length - 1;
+
+    while (left <= right) {
+      const mid = Math.floor((left + right) / 2);
+      if (array[mid] === target) {
+        return mid;
+      } else if (array[mid] < target) {
+        left = mid + 1;
+      } else {
+        right = mid - 1;
+      }
+    }
+
+    return -1;
+  }
+}
+
+const binarySearchArray = [
+  "Baratheon",
+  "Greyjoy",
+  "Lannister",
+  "Martell",
+  "Stark",
+  "Targaryen",
+];
+const binarySearchTarget1 = "Lannister";
+const binarySearchIndex1 = BinarySearch.search(
+  binarySearchArray,
+  binarySearchTarget1,
+);
+console.log(
+  `Index of ${binarySearchTarget1} in binary search: ${binarySearchIndex1}`,
+);

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.LinearSearch = exports.QuickSort = exports.SelectionSort = exports.BubbleSort = void 0;
+exports.BinarySearch = exports.LinearSearch = exports.QuickSort = exports.SelectionSort = exports.BubbleSort = void 0;
 class BubbleSort {
     static sort(array) {
         let n = array.length;
@@ -91,7 +91,7 @@ class LinearSearch {
     }
 }
 exports.LinearSearch = LinearSearch;
-const houseArray = [
+const linearSearchArray = [
     "Stark",
     "Lannister",
     "Targaryen",
@@ -99,6 +99,37 @@ const houseArray = [
     "Greyjoy",
     "Martell",
 ];
-const targetHouse1 = "Lannister";
-const index1 = LinearSearch.search(houseArray, targetHouse1);
-console.log(`Index of ${targetHouse1} using LinearSearch: ${index1}`);
+const linearSearchTarget1 = "Lannister";
+const linearSearchIndex1 = LinearSearch.search(linearSearchArray, linearSearchTarget1);
+console.log(`Index of ${linearSearchTarget1} in linear search: ${linearSearchIndex1}`);
+class BinarySearch {
+    static search(array, target) {
+        let left = 0;
+        let right = array.length - 1;
+        while (left <= right) {
+            const mid = Math.floor((left + right) / 2);
+            if (array[mid] === target) {
+                return mid;
+            }
+            else if (array[mid] < target) {
+                left = mid + 1;
+            }
+            else {
+                right = mid - 1;
+            }
+        }
+        return -1;
+    }
+}
+exports.BinarySearch = BinarySearch;
+const binarySearchArray = [
+    "Baratheon",
+    "Greyjoy",
+    "Lannister",
+    "Martell",
+    "Stark",
+    "Targaryen",
+];
+const binarySearchTarget1 = "Lannister";
+const binarySearchIndex1 = BinarySearch.search(binarySearchArray, binarySearchTarget1);
+console.log(`Index of ${binarySearchTarget1} in binary search: ${binarySearchIndex1}`);
