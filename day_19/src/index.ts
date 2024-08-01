@@ -68,3 +68,29 @@ const digitSequenceText =
   "The battle took place in 2024, with 150 soldiers and 7 dragons.";
 const digitSequences = findDigitSequences(digitSequenceText);
 console.log(`Digit sequences found: ${digitSequences.join(", ")}`);
+
+export function capturePhoneNumberParts(
+  phoneNumber: string,
+): { areaCode: string; centralOfficeCode: string; lineNumber: string } | null {
+  const phoneNumberRegex = /^\((\d{3})\) (\d{3})-(\d{4})$/;
+  const match = phoneNumber.match(phoneNumberRegex);
+
+  if (match) {
+    const [_, areaCode, centralOfficeCode, lineNumber] = match;
+    console.log(
+      `By the light of the Seven, the area code is ${areaCode}, the central office code is ${centralOfficeCode}, and the line number is ${lineNumber}.`,
+    );
+    return { areaCode, centralOfficeCode, lineNumber };
+  } else {
+    console.log(`Alas, the phone number does not match the expected format.`);
+    return null;
+  }
+}
+
+const examplePhoneNumber = "(123) 456-7890";
+const phoneParts = capturePhoneNumberParts(examplePhoneNumber);
+if (phoneParts) {
+  console.log(
+    `Captured parts: Area Code - ${phoneParts.areaCode}, Central Office Code - ${phoneParts.centralOfficeCode}, Line Number - ${phoneParts.lineNumber}`,
+  );
+}
