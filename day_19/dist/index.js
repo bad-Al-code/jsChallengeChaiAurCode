@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.findJavaScriptOccurrences = findJavaScriptOccurrences;
 exports.findAllDigits = findAllDigits;
+exports.findCapitalizedWords = findCapitalizedWords;
 function findJavaScriptOccurrences(text) {
     const regex = /\bjavascript\b/gi;
     const matches = text.match(regex);
@@ -30,3 +31,17 @@ function findAllDigits(text) {
 const digitText = "The year is 2024 and there are 5 dragons.";
 const digits = findAllDigits(digitText);
 console.log(`Digits found: ${digits.join(", ")}`);
+function findCapitalizedWords(text) {
+    const regex = /\b[A-Z][a-z]*\b/g;
+    const matches = text.match(regex);
+    if (matches) {
+        console.log(`In the name of the Seven, we found ${matches.length} capitalized word(s) in the string.`);
+    }
+    else {
+        console.log(`No capitalized words were found in the kingdom.`);
+    }
+    return matches || [];
+}
+const capitalizedText = "Winter is Coming. Jon Snow and Daenerys Targaryen are key figures.";
+const capitalizedWords = findCapitalizedWords(capitalizedText);
+console.log(`Capitalized words: ${capitalizedWords.join(", ")}`);
