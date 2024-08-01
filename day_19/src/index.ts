@@ -11,6 +11,23 @@ export function findJavaScriptOccurrences(text: string): string[] {
   return matches || [];
 }
 
-const text = "JavaScript is a versatile language. I love JavaScript!";
-const occurrences = findJavaScriptOccurrences(text);
-console.log(`Occurrences: ${occurrences.join(", ")}`);
+const jsText = "JavaScript is a versatile language. I love JavaScript!";
+const jsOccurrences = findJavaScriptOccurrences(jsText);
+console.log(`Occurrences: ${jsOccurrences.join(", ")}`);
+
+export function findAllDigits(text: string): string[] {
+  const regex = /\d+/g;
+  const matches = text.match(regex);
+  if (matches) {
+    console.log(
+      `By the light of the Seven, we found ${matches.length} digit(s) in the string.`,
+    );
+  } else {
+    console.log(`No digits were found in the land of text.`);
+  }
+  return matches || [];
+}
+
+const digitText = "The year is 2024 and there are 5 dragons.";
+const digits = findAllDigits(digitText);
+console.log(`Digits found: ${digits.join(", ")}`);
