@@ -120,3 +120,23 @@ if (emailParts) {
     `Captured parts: Username - ${emailParts.username}, Domain Name - ${emailParts.domainName}`,
   );
 }
+
+export function matchWordAtStart(text: string, word: string): boolean {
+  const wordAtStartRegex = new RegExp(`^${word}\\b`, "i"); // Case-insensitive match
+  const match = wordAtStartRegex.test(text);
+
+  if (match) {
+    console.log(
+      `By the old gods and the new, the word "${word}" is present at the beginning of the string.`,
+    );
+  } else {
+    console.log(`Alas, the word "${word}" does not start the string.`);
+  }
+
+  return match;
+}
+
+const exampleText = "Winter is coming.";
+const wordToMatch = "Winter";
+const isWordAtStart = matchWordAtStart(exampleText, wordToMatch);
+console.log(`Word "${wordToMatch}" at the start: ${isWordAtStart}`);

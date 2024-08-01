@@ -6,6 +6,7 @@ exports.findCapitalizedWords = findCapitalizedWords;
 exports.findDigitSequences = findDigitSequences;
 exports.capturePhoneNumberParts = capturePhoneNumberParts;
 exports.captureEmailParts = captureEmailParts;
+exports.matchWordAtStart = matchWordAtStart;
 function findJavaScriptOccurrences(text) {
     const regex = /\bjavascript\b/gi;
     const matches = text.match(regex);
@@ -99,3 +100,18 @@ const emailParts = captureEmailParts(exampleEmail);
 if (emailParts) {
     console.log(`Captured parts: Username - ${emailParts.username}, Domain Name - ${emailParts.domainName}`);
 }
+function matchWordAtStart(text, word) {
+    const wordAtStartRegex = new RegExp(`^${word}\\b`, "i"); // Case-insensitive match
+    const match = wordAtStartRegex.test(text);
+    if (match) {
+        console.log(`By the old gods and the new, the word "${word}" is present at the beginning of the string.`);
+    }
+    else {
+        console.log(`Alas, the word "${word}" does not start the string.`);
+    }
+    return match;
+}
+const exampleText = "Winter is coming.";
+const wordToMatch = "Winter";
+const isWordAtStart = matchWordAtStart(exampleText, wordToMatch);
+console.log(`Word "${wordToMatch}" at the start: ${isWordAtStart}`);
