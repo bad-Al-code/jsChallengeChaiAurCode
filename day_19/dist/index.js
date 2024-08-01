@@ -5,6 +5,7 @@ exports.findAllDigits = findAllDigits;
 exports.findCapitalizedWords = findCapitalizedWords;
 exports.findDigitSequences = findDigitSequences;
 exports.capturePhoneNumberParts = capturePhoneNumberParts;
+exports.captureEmailParts = captureEmailParts;
 function findJavaScriptOccurrences(text) {
     const regex = /\bjavascript\b/gi;
     const matches = text.match(regex);
@@ -58,7 +59,7 @@ function findDigitSequences(text) {
     }
     return digitSequences || [];
 }
-// Example usage
+// Example
 const digitSequenceText = "The battle took place in 2024, with 150 soldiers and 7 dragons.";
 const digitSequences = findDigitSequences(digitSequenceText);
 console.log(`Digit sequences found: ${digitSequences.join(", ")}`);
@@ -79,4 +80,22 @@ const examplePhoneNumber = "(123) 456-7890";
 const phoneParts = capturePhoneNumberParts(examplePhoneNumber);
 if (phoneParts) {
     console.log(`Captured parts: Area Code - ${phoneParts.areaCode}, Central Office Code - ${phoneParts.centralOfficeCode}, Line Number - ${phoneParts.lineNumber}`);
+}
+function captureEmailParts(email) {
+    const emailRegex = /^(.+)@(.+)$/;
+    const match = email.match(emailRegex);
+    if (match) {
+        const [_, username, domainName] = match;
+        console.log(`By the fire of the dragons, the username is "${username}" and the domain name is "${domainName}".`);
+        return { username, domainName };
+    }
+    else {
+        console.log(`Alas, the email address does not match the expected format.`);
+        return null;
+    }
+}
+const exampleEmail = "arya.stark@winterfell.com";
+const emailParts = captureEmailParts(exampleEmail);
+if (emailParts) {
+    console.log(`Captured parts: Username - ${emailParts.username}, Domain Name - ${emailParts.domainName}`);
 }

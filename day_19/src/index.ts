@@ -63,7 +63,7 @@ export function findDigitSequences(text: string): string[] {
   return digitSequences || [];
 }
 
-// Example usage
+// Example
 const digitSequenceText =
   "The battle took place in 2024, with 150 soldiers and 7 dragons.";
 const digitSequences = findDigitSequences(digitSequenceText);
@@ -92,5 +92,31 @@ const phoneParts = capturePhoneNumberParts(examplePhoneNumber);
 if (phoneParts) {
   console.log(
     `Captured parts: Area Code - ${phoneParts.areaCode}, Central Office Code - ${phoneParts.centralOfficeCode}, Line Number - ${phoneParts.lineNumber}`,
+  );
+}
+
+export function captureEmailParts(
+  email: string,
+): { username: string; domainName: string } | null {
+  const emailRegex = /^(.+)@(.+)$/;
+  const match = email.match(emailRegex);
+
+  if (match) {
+    const [_, username, domainName] = match;
+    console.log(
+      `By the fire of the dragons, the username is "${username}" and the domain name is "${domainName}".`,
+    );
+    return { username, domainName };
+  } else {
+    console.log(`Alas, the email address does not match the expected format.`);
+    return null;
+  }
+}
+
+const exampleEmail = "arya.stark@winterfell.com";
+const emailParts = captureEmailParts(exampleEmail);
+if (emailParts) {
+  console.log(
+    `Captured parts: Username - ${emailParts.username}, Domain Name - ${emailParts.domainName}`,
   );
 }
