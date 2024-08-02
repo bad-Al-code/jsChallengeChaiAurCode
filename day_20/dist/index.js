@@ -113,3 +113,28 @@ window.onload = () => {
         .value;
     FormDataManager.saveFormData(nameInput, emailInput);
 });
+class LocalStorageCleanupManager {
+    static logLocalStorageContent(message) {
+        console.log(message);
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            if (key) {
+                const value = localStorage.getItem(key);
+                console.log(`Key: ${key}, Value: ${value}`);
+            }
+        }
+    }
+    static removeItem(key) {
+        try {
+            this.logLocalStorageContent(`Before Removal:`);
+            localStorage.removeItem(key);
+            console.log(`Success: The item with key "${key}" has been removed.`);
+            this.logLocalStorageContent(`After Removal:`);
+        }
+        catch (error) {
+            console.error(`Error: The raven was unable to remove the item. ${error}`);
+        }
+    }
+}
+const keyToRemove = "starkFamily";
+LocalStorageCleanupManager.removeItem(keyToRemove);
