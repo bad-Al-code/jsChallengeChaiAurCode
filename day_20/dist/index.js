@@ -165,3 +165,36 @@ class SessionStorageManager {
 }
 SessionStorageManager.saveString("kingInTheNorth", "Jon Snow");
 SessionStorageManager.retrieveString("kingInTheNorth");
+class SessionStorageObjectManager {
+    static saveObject(key, obj) {
+        try {
+            const jsonString = JSON.stringify(obj);
+            sessionStorage.setItem(key, jsonString);
+            console.log(`Success: The raven has delivered the object. "${key}" is now stored in the session.`);
+        }
+        catch (error) {
+            console.error(`Error: The raven was unable to deliver the object. ${error}`);
+        }
+    }
+    static retrieveObject(key) {
+        try {
+            const jsonString = sessionStorage.getItem(key);
+            if (jsonString) {
+                const obj = JSON.parse(jsonString);
+                console.log(`Success: The object from "${key}" has been retrieved from the session.`, obj);
+            }
+            else {
+                console.warn(`Warning: No object found under the name "${key}".`);
+            }
+        }
+        catch (error) {
+            console.error(`Error: The archives are unreachable or the data is corrupted. ${error}`);
+        }
+    }
+}
+const lannisterFamily = {
+    family: "Lannister",
+    members: ["Tywin", "Cersei", "Jaime", "Tyrion"],
+};
+SessionStorageObjectManager.saveObject("lannisterFamily", lannisterFamily);
+SessionStorageObjectManager.retrieveObject("lannisterFamily");
