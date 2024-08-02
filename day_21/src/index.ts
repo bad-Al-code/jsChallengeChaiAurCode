@@ -47,3 +47,18 @@ class IntergerReverse {
 
 const number = -10121;
 console.log(IntergerReverse.reverseIntergers(number));
+
+class PalindromeValidator {
+  static isPalindrome(number: number): boolean {
+    if (number < 0) return false;
+    const numberString = number.toString();
+
+    const isPalindrome =
+      numberString === numberString.split("").reverse().join("");
+
+    return isPalindrome;
+  }
+}
+
+const palindromeNumber = -12321;
+console.log(PalindromeValidator.isPalindrome(palindromeNumber));

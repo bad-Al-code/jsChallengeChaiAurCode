@@ -18,8 +18,6 @@ function twoSumProblem(numbers, target) {
 const numbers = [1, 2, 4, 5, 10];
 const target = 9;
 console.log(twoSumProblem(numbers, target));
-// TODO: Write a function that takes an interger and returns it with ots digit reveresed
-// NOTE: Handle edge cases like negative numbers and numbers ending with zero
 class IntergerReverse {
     static reverseIntergers(number) {
         const negativeNumber = number < 0;
@@ -34,3 +32,16 @@ class IntergerReverse {
 }
 const number = -10121;
 console.log(IntergerReverse.reverseIntergers(number));
+// TODO: function takes an integer and returns true if it is a palindrome and false otherwise.
+// NOTE: Handle edge cases like -> negative numbers
+class PalindromeValidator {
+    static isPalindrome(number) {
+        if (number < 0)
+            return false;
+        const numberString = number.toString();
+        const isPalindrome = numberString === numberString.split("").reverse().join("");
+        return isPalindrome;
+    }
+}
+const palindromeNumber = -12321;
+console.log(PalindromeValidator.isPalindrome(palindromeNumber));
