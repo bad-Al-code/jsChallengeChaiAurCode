@@ -245,3 +245,68 @@ const lannisterFamily = {
 };
 SessionStorageObjectManager.saveObject("lannisterFamily", lannisterFamily);
 SessionStorageObjectManager.retrieveObject("lannisterFamily");
+
+class SessionStorageFormManager {
+  private static readonly FORM_KEY = "userFormData";
+
+  static saveFormData(name: string, email: string): void {
+    try {
+      const formData = { name, email };
+      const jsonString = JSON.stringify(formData);
+      sessionStorage.setItem(this.FORM_KEY, jsonString);
+      console.log(
+        `Success: The raven has delivered the form data. "${this.FORM_KEY}" is now stored in the session.`,
+      );
+    } catch (error) {
+      console.error(
+        `Error: The raven was unable to deliver the form data. ${error}`,
+      );
+    }
+  }
+
+  static retrieveFormData(): { name: string; email: string } | null {
+    try {
+      const jsonString = sessionStorage.getItem(this.FORM_KEY);
+      if (jsonString) {
+        const formData = JSON.parse(jsonString);
+        console.log(
+          `Success: The form data has been retrieved from the session.`,
+          formData,
+        );
+        return formData;
+      } else {
+        console.warn(
+          `Warning: No form data found under the name "${this.FORM_KEY}".`,
+        );
+        return null;
+      }
+    } catch (error) {
+      console.error(
+        `Error: The archives are unreachable or the data is corrupted. ${error}`,
+      );
+      return null;
+    }
+  }
+}
+
+window.onload = () => {
+  const formData = SessionStorageFormManager.retrieveFormData();
+  if (formData) {
+    (
+      document.getElementById("sessionNameDisplay") as HTMLParagraphElement
+    ).textContent = `Name: ${formData.name}`;
+    (
+      document.getElementById("sessionEmailDisplay") as HTMLParagraphElement
+    ).textContent = `Email: ${formData.email}`;
+  }
+};
+
+document.getElementById("sessionForm")?.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const nameInput = (document.getElementById("sessionName") as HTMLInputElement)
+    .value;
+  const emailInput = (
+    document.getElementById("sessionEmail") as HTMLInputElement
+  ).value;
+  SessionStorageFormManager.saveFormData(nameInput, emailInput);
+});
