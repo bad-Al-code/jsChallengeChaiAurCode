@@ -62,3 +62,57 @@ class PalindromeValidator {
 
 const palindromeNumber = -12321;
 console.log(PalindromeValidator.isPalindrome(palindromeNumber));
+
+class ListNode {
+  value: number;
+  next: ListNode | null;
+
+  constructor(value: number, next: ListNode | null = null) {
+    this.value = value;
+    this.next = next;
+  }
+}
+
+class LinkedListMerge {
+  static mergeSortedLists(
+    list1: ListNode | null,
+    list2: ListNode | null,
+  ): ListNode | null {
+    const dummy = new ListNode(0);
+    let current = dummy;
+
+    while (list1 !== null && list2 !== null) {
+      if (list1.value < list2.value) {
+        current.next = list1;
+        list1 = list1.next;
+      } else {
+        current.next = list2;
+        list2 = list2.next;
+      }
+      current = current.next;
+    }
+
+    // remiining nodes
+    current.next = list1 !== null ? list1 : list2;
+
+    console.log("Merged list created successfully. The North remembers.");
+
+    return dummy.next;
+  }
+}
+
+function printList(head: ListNode | null): void {
+  let current = head;
+  const values: number[] = [];
+  while (current !== null) {
+    values.push(current.value);
+    current = current.next;
+  }
+  console.log(values.join(" -> "));
+}
+
+const list1 = new ListNode(1, new ListNode(3, new ListNode(5)));
+const list2 = new ListNode(2, new ListNode(4, new ListNode(6)));
+
+const mergedList = LinkedListMerge.mergeSortedLists(list1, list2);
+printList(mergedList);
