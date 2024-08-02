@@ -18,3 +18,19 @@ function twoSumProblem(numbers, target) {
 const numbers = [1, 2, 4, 5, 10];
 const target = 9;
 console.log(twoSumProblem(numbers, target));
+// TODO: Write a function that takes an interger and returns it with ots digit reveresed
+// NOTE: Handle edge cases like negative numbers and numbers ending with zero
+class IntergerReverse {
+    static reverseIntergers(number) {
+        const negativeNumber = number < 0;
+        const reversedString = Math.abs(number)
+            .toString()
+            .split("")
+            .reverse()
+            .join("");
+        const reversedNumber = parseInt(reversedString);
+        return negativeNumber ? -reversedNumber : reversedNumber;
+    }
+}
+const number = -10121;
+console.log(IntergerReverse.reverseIntergers(number));

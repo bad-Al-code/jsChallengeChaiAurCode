@@ -29,3 +29,21 @@ const numbers = [1, 2, 4, 5, 10];
 const target = 9;
 
 console.log(twoSumProblem(numbers, target));
+
+class IntergerReverse {
+  static reverseIntergers(number: number): number {
+    const negativeNumber = number < 0;
+    const reversedString = Math.abs(number)
+      .toString()
+      .split("")
+      .reverse()
+      .join("");
+
+    const reversedNumber = parseInt(reversedString);
+
+    return negativeNumber ? -reversedNumber : reversedNumber;
+  }
+}
+
+const number = -10121;
+console.log(IntergerReverse.reverseIntergers(number));
