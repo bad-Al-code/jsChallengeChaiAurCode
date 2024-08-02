@@ -49,7 +49,7 @@ class ListNode {
         this.next = next;
     }
 }
-class LinkedListMerger {
+class LinkedListMerge {
     static mergeSortedLists(list1, list2) {
         const dummy = new ListNode(0);
         let current = dummy;
@@ -81,5 +81,31 @@ function printList(head) {
 }
 const list1 = new ListNode(1, new ListNode(3, new ListNode(5)));
 const list2 = new ListNode(2, new ListNode(4, new ListNode(6)));
-const mergedList = LinkedListMerger.mergeSortedLists(list1, list2);
+const mergedList = LinkedListMerge.mergeSortedLists(list1, list2);
 printList(mergedList);
+class BracketValidator {
+    static isValid(input) {
+        const stack = [];
+        const bracketMap = {
+            ")": "(",
+            "}": "{",
+            "]": "[",
+        };
+        for (const char of input) {
+            if (["(", "{", "["].includes(char)) {
+                stack.push(char);
+            }
+            else if ([")", "}", "]"].includes(char)) {
+                if (stack.length === 0 || stack.pop() !== bracketMap[char]) {
+                    console.log(`Invalid bracket sequence. The winds of winter are cold.`);
+                    return false;
+                }
+            }
+        }
+        const isValid = stack.length === 0;
+        console.log(`The bracket sequence ${isValid ? "is" : "is not"} valid. The night is dark and full of terrors.`);
+        return isValid;
+    }
+}
+const input = "{[((((())))]}";
+console.log(BracketValidator.isValid(input));
