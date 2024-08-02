@@ -1,4 +1,4 @@
-export class LocalStorageManager {
+class LocalStorageManager {
   static saveString(key: string, value: string): void {
     try {
       localStorage.setItem(key, value);
@@ -33,3 +33,49 @@ export class LocalStorageManager {
 LocalStorageManager.saveString("winterfell", "The North remembers");
 const message = LocalStorageManager.retrieveString("winterfell");
 console.log(message);
+
+class LocalStorageObjectManager {
+  static saveObject(key: string, obj: object): void {
+    try {
+      const jsonString = JSON.stringify(obj);
+      localStorage.setItem(key, jsonString);
+      console.log(
+        `Success: The raven has delivered your object, "${key}" is now stored.`,
+      );
+    } catch (error) {
+      console.error(
+        `Error: The raven was unable to deliver your object. ${error}`,
+      );
+    }
+  }
+
+  static retrieveObject(key: string): object | null {
+    try {
+      const jsonString = localStorage.getItem(key);
+      if (jsonString) {
+        const obj = JSON.parse(jsonString);
+        console.log(
+          `Success: The object from "${key}" has been retrieved from the archives.`,
+          obj,
+        );
+        return obj;
+      } else {
+        console.warn(`Warning: No object found under the name "${key}".`);
+        return null;
+      }
+    } catch (error) {
+      console.error(
+        `Error: The archives are unreachable or the data is corrupted. ${error}`,
+      );
+      return null;
+    }
+  }
+}
+
+const starkFamily = {
+  family: "Stark",
+  members: ["Eddard", "Catelyn", "Robb", "Sansa", "Arya", "Bran", "Rickon"],
+};
+LocalStorageObjectManager.saveObject("starkFamily", starkFamily);
+const retrievedObject = LocalStorageObjectManager.retrieveObject("starkFamily");
+console.log(retrievedObject);
