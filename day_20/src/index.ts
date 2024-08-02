@@ -339,3 +339,56 @@ class SessionStorageCleanupManager {
 
 const sessionKeyToRemove = "sessionFormData";
 SessionStorageCleanupManager.removeItem(sessionKeyToRemove);
+
+class AlternativeStorageManager {
+  static saveToBothStorages(key: string, value: string): void {
+    try {
+      localStorage.setItem(key, value);
+      console.log(
+        `Success: The raven has delivered the value to localStorage. Key: "${key}", Value: "${value}"`,
+      );
+
+      sessionStorage.setItem(key, value);
+      console.log(
+        `Success: The raven has delivered the value to sessionStorage. Key: "${key}", Value: "${value}"`,
+      );
+    } catch (error) {
+      console.error(
+        `Error: The raven was unable to deliver the value. ${error}`,
+      );
+    }
+  }
+
+  static logValuesFromStorages(key: string): void {
+    try {
+      const localStorageValue = localStorage.getItem(key);
+      if (localStorageValue !== null) {
+        console.log(
+          `Retrieved from localStorage: Key: "${key}", Value: "${localStorageValue}"`,
+        );
+      } else {
+        console.warn(
+          `Warning: No value found in localStorage under the key "${key}".`,
+        );
+      }
+
+      const sessionStorageValue = sessionStorage.getItem(key);
+      if (sessionStorageValue !== null) {
+        console.log(
+          `Retrieved from sessionStorage: Key: "${key}", Value: "${sessionStorageValue}"`,
+        );
+      } else {
+        console.warn(
+          `Warning: No value found in sessionStorage under the key "${key}".`,
+        );
+      }
+    } catch (error) {
+      console.error(`Error: The archives are unreachable. ${error}`);
+    }
+  }
+}
+
+const key = "uniqueKey";
+const value = "uniqueValue";
+AlternativeStorageManager.saveToBothStorages(key, value);
+AlternativeStorageManager.logValuesFromStorages(key);
