@@ -169,3 +169,37 @@ class LocalStorageCleanupManager {
 
 const keyToRemove = "starkFamily";
 LocalStorageCleanupManager.removeItem(keyToRemove);
+
+class SessionStorageManager {
+  static saveString(key: string, value: string): void {
+    try {
+      sessionStorage.setItem(key, value);
+      console.log(
+        `Success: The raven has delivered your message. "${key}" is now stored in the session.`,
+      );
+    } catch (error) {
+      console.error(
+        `Error: The raven was unable to deliver your message. ${error}`,
+      );
+    }
+  }
+
+  static retrieveString(key: string): void {
+    try {
+      const value = sessionStorage.getItem(key);
+      if (value) {
+        console.log(
+          `Success: The message from "${key}" has been retrieved from the session.`,
+          value,
+        );
+      } else {
+        console.warn(`Warning: No message found under the name "${key}".`);
+      }
+    } catch (error) {
+      console.error(`Error: The archives are unreachable. ${error}`);
+    }
+  }
+}
+
+SessionStorageManager.saveString("kingInTheNorth", "Jon Snow");
+SessionStorageManager.retrieveString("kingInTheNorth");
