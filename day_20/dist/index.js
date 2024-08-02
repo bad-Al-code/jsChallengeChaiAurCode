@@ -307,3 +307,37 @@ const key = "uniqueKey";
 const value = "uniqueValue";
 AlternativeStorageManager.saveToBothStorages(key, value);
 AlternativeStorageManager.logValuesFromStorages(key);
+class StorageCleaner {
+    static clearAllData() {
+        try {
+            localStorage.clear();
+            console.log(`Success: All data has been cleared from localStorage.`);
+            sessionStorage.clear();
+            console.log(`Success: All data has been cleared from sessionStorage.`);
+            this.verifyStoragesAreEmpty();
+        }
+        catch (error) {
+            console.error(`Error: The raven was unable to clear the storages. ${error}`);
+        }
+    }
+    static verifyStoragesAreEmpty() {
+        try {
+            if (localStorage.length === 0) {
+                console.log(`Verified: localStorage is empty.`);
+            }
+            else {
+                console.warn(`Warning: localStorage is not empty.`);
+            }
+            if (sessionStorage.length === 0) {
+                console.log(`Verified: sessionStorage is empty.`);
+            }
+            else {
+                console.warn(`Warning: sessionStorage is not empty.`);
+            }
+        }
+        catch (error) {
+            console.error(`Error: The archives are unreachable. ${error}`);
+        }
+    }
+}
+StorageCleaner.clearAllData();
