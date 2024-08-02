@@ -79,3 +79,66 @@ const starkFamily = {
 LocalStorageObjectManager.saveObject("starkFamily", starkFamily);
 const retrievedObject = LocalStorageObjectManager.retrieveObject("starkFamily");
 console.log(retrievedObject);
+
+class FormDataManager {
+  private static readonly FORM_KEY = "userFormData";
+
+  static saveFormData(name: string, email: string): void {
+    try {
+      const formData = { name, email };
+      const jsonString = JSON.stringify(formData);
+      localStorage.setItem(this.FORM_KEY, jsonString);
+      console.log(
+        `Success: The raven has delivered the form data. "${this.FORM_KEY}" is now stored.`,
+      );
+    } catch (error) {
+      console.error(
+        `Error: The raven was unable to deliver the form data. ${error}`,
+      );
+    }
+  }
+
+  static retrieveFormData(): { name: string; email: string } | null {
+    try {
+      const jsonString = localStorage.getItem(this.FORM_KEY);
+      if (jsonString) {
+        const formData = JSON.parse(jsonString);
+        console.log(
+          `Success: The form data has been retrieved from the archives.`,
+          formData,
+        );
+        return formData;
+      } else {
+        console.warn(
+          `Warning: No form data found under the name "${this.FORM_KEY}".`,
+        );
+        return null;
+      }
+    } catch (error) {
+      console.error(
+        `Error: The archives are unreachable or the data is corrupted. ${error}`,
+      );
+      return null;
+    }
+  }
+}
+
+window.onload = () => {
+  const formData = FormDataManager.retrieveFormData();
+  if (formData) {
+    (
+      document.getElementById("nameDisplay") as HTMLParagraphElement
+    ).textContent = `Name: ${formData.name}`;
+    (
+      document.getElementById("emailDisplay") as HTMLParagraphElement
+    ).textContent = `Email: ${formData.email}`;
+  }
+};
+
+document.getElementById("userForm")?.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const nameInput = (document.getElementById("name") as HTMLInputElement).value;
+  const emailInput = (document.getElementById("email") as HTMLInputElement)
+    .value;
+  FormDataManager.saveFormData(nameInput, emailInput);
+});
