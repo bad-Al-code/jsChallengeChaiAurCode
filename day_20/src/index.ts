@@ -310,3 +310,32 @@ document.getElementById("sessionForm")?.addEventListener("submit", (event) => {
   ).value;
   SessionStorageFormManager.saveFormData(nameInput, emailInput);
 });
+
+class SessionStorageCleanupManager {
+  static logSessionStorageContent(message: string): void {
+    console.log(message);
+    for (let i = 0; i < sessionStorage.length; i++) {
+      const key = sessionStorage.key(i);
+      if (key) {
+        const value = sessionStorage.getItem(key);
+        console.log(`Key: ${key}, Value: ${value}`);
+      }
+    }
+  }
+
+  static removeItem(key: string): void {
+    try {
+      this.logSessionStorageContent(`Before Removal:`);
+      sessionStorage.removeItem(key);
+      console.log(
+        `Success: The item with key "${key}" has been removed from sessionStorage.`,
+      );
+      this.logSessionStorageContent(`After Removal:`);
+    } catch (error) {
+      console.error(`Error: The raven was unable to remove the item. ${error}`);
+    }
+  }
+}
+
+const sessionKeyToRemove = "sessionFormData";
+SessionStorageCleanupManager.removeItem(sessionKeyToRemove);
