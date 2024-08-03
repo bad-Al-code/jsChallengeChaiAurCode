@@ -5,6 +5,7 @@ exports.addTwoNumbers = addTwoNumbers;
 exports.lengthOfLongestSubstring = lengthOfLongestSubstring;
 exports.maxArea = maxArea;
 exports.groupAnagrams = groupAnagrams;
+exports.threeSum = threeSum;
 class ListNode {
     constructor(val, next = null) {
         this.val = val;
@@ -118,3 +119,54 @@ console.log(groupAnagrams(testWords2));
 console.log(groupAnagrams(testWords3));
 console.log(groupAnagrams(testWords4));
 console.log(groupAnagrams(testWords5));
+function threeSum(tyrionNumbers) {
+    let results = [];
+    if (tyrionNumbers.length < 3) {
+        console.log("Not enough elements for triplets, Your Grace.");
+        return results;
+    }
+    tyrionNumbers.sort((a, b) => a - b);
+    for (let i = 0; i < tyrionNumbers.length - 2; i++) {
+        if (i > 0 && tyrionNumbers[i] === tyrionNumbers[i - 1]) {
+            continue;
+        }
+        let left = i + 1;
+        let right = tyrionNumbers.length - 1;
+        while (left < right) {
+            const sum = tyrionNumbers[i] + tyrionNumbers[left] + tyrionNumbers[right];
+            if (sum === 0) {
+                results.push([
+                    tyrionNumbers[i],
+                    tyrionNumbers[left],
+                    tyrionNumbers[right],
+                ]);
+                console.log(`Triplet found, Your Grace: [${tyrionNumbers[i]}, ${tyrionNumbers[left]}, ${tyrionNumbers[right]}]`);
+                while (left < right && tyrionNumbers[left] === tyrionNumbers[left + 1])
+                    left++;
+                while (left < right &&
+                    tyrionNumbers[right] === tyrionNumbers[right - 1])
+                    right--;
+                left++;
+                right--;
+            }
+            else if (sum < 0) {
+                left++;
+            }
+            else {
+                right--;
+            }
+        }
+    }
+    console.log("All triplets have been logged, Your Grace.");
+    return results;
+}
+const testNumbers1 = [-1, 0, 1, 2, -1, -4];
+const testNumbers2 = [];
+const testNumbers3 = [0];
+const testNumbers4 = [0, 0, 0];
+const testNumbers5 = [-2, 0, 1, 1, 2];
+console.log(threeSum(testNumbers1));
+console.log(threeSum(testNumbers2));
+console.log(threeSum(testNumbers3));
+console.log(threeSum(testNumbers4));
+console.log(threeSum(testNumbers5));
