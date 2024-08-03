@@ -52,3 +52,27 @@ const list2 = new ListNode(5, new ListNode(6, new ListNode(4)));
 const result = addTwoNumbers(list1, list2);
 // console.log(result);
 printLinkedList(result);
+
+export function lengthOfLongestSubstring(daenerysStr: string): number {
+  let dragonMap: Map<string, number> = new Map();
+  let maxLength: number = 0;
+  let start: number = 0;
+
+  for (let end = 0; end < daenerysStr.length; end++) {
+    let currentChar = daenerysStr[end];
+    if (dragonMap.has(currentChar)) {
+      start = Math.max(start, (dragonMap.get(currentChar) || 0) + 1);
+    }
+    dragonMap.set(currentChar, end);
+    maxLength = Math.max(maxLength, end - start + 1);
+  }
+
+  console.log("Longest unique substring found, Your Grace.");
+  return maxLength;
+}
+
+const testCases = ["targaryen", "", "jon", "aaaa", "sersei"];
+testCases.forEach((testCase) => {
+  const result = lengthOfLongestSubstring(testCase);
+  console.log(`Input: "${testCase}", Output: ${result}`);
+});

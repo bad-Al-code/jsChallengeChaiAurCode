@@ -1,10 +1,15 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ListNode = void 0;
+exports.addTwoNumbers = addTwoNumbers;
+exports.lengthOfLongestSubstring = lengthOfLongestSubstring;
 class ListNode {
     constructor(val, next = null) {
         this.val = val;
         this.next = next;
     }
 }
+exports.ListNode = ListNode;
 function addTwoNumbers(lannisterList, starkList) {
     let head = new ListNode(0);
     let current = head;
@@ -38,5 +43,25 @@ function printLinkedList(node) {
 const list1 = new ListNode(2, new ListNode(4, new ListNode(3)));
 const list2 = new ListNode(5, new ListNode(6, new ListNode(4)));
 const result = addTwoNumbers(list1, list2);
-console.log(result);
+// console.log(result);
 printLinkedList(result);
+function lengthOfLongestSubstring(daenerysStr) {
+    let dragonMap = new Map();
+    let maxLength = 0;
+    let start = 0;
+    for (let end = 0; end < daenerysStr.length; end++) {
+        let currentChar = daenerysStr[end];
+        if (dragonMap.has(currentChar)) {
+            start = Math.max(start, (dragonMap.get(currentChar) || 0) + 1);
+        }
+        dragonMap.set(currentChar, end);
+        maxLength = Math.max(maxLength, end - start + 1);
+    }
+    console.log("Longest unique substring found, Your Grace.");
+    return maxLength;
+}
+const testCases = ["targaryen", "", "jon", "aaaa", "sersei"];
+testCases.forEach((testCase) => {
+    const result = lengthOfLongestSubstring(testCase);
+    console.log(`Input: "${testCase}", Output: ${result}`);
+});
