@@ -76,3 +76,37 @@ testCases.forEach((testCase) => {
   const result = lengthOfLongestSubstring(testCase);
   console.log(`Input: "${testCase}", Output: ${result}`);
 });
+
+export function maxArea(brienneHeights: number[]): number {
+  let left: number = 0;
+  let right: number = brienneHeights.length - 1;
+  let maxWater: number = 0;
+
+  while (left < right) {
+    const height = Math.min(brienneHeights[left], brienneHeights[right]);
+    const width = right - left;
+    const currentWater = height * width;
+    maxWater = Math.max(maxWater, currentWater);
+
+    if (brienneHeights[left] < brienneHeights[right]) {
+      left++;
+    } else {
+      right--;
+    }
+  }
+
+  console.log(`Maximum water contained, Your Grace: ${maxWater}`);
+  return maxWater;
+}
+
+const testHeights1 = [1, 8, 6, 2, 5, 4, 8, 3, 7];
+const testHeights2 = [4, 3, 2, 1, 4];
+const testHeights3 = [1, 2, 1];
+const testHeights4 = [1, 1];
+const testHeights5 = [2, 3, 10, 5, 7, 8, 9];
+
+console.log(maxArea(testHeights1));
+console.log(maxArea(testHeights2));
+console.log(maxArea(testHeights3));
+console.log(maxArea(testHeights4));
+console.log(maxArea(testHeights5));
