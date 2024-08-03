@@ -110,3 +110,30 @@ console.log(maxArea(testHeights2));
 console.log(maxArea(testHeights3));
 console.log(maxArea(testHeights4));
 console.log(maxArea(testHeights5));
+
+export function groupAnagrams(daenerysWords: string[]): string[][] {
+  let dragonMap: Map<string, string[]> = new Map();
+
+  daenerysWords.forEach((word) => {
+    let sortedWord = word.split("").sort().join("");
+    if (!dragonMap.has(sortedWord)) {
+      dragonMap.set(sortedWord, []);
+    }
+    dragonMap.get(sortedWord)!.push(word);
+  });
+
+  console.log("Anagrams grouped successfully, Your Grace.");
+  return Array.from(dragonMap.values());
+}
+
+const testWords1 = ["eat", "tea", "tan", "ate", "nat", "bat"];
+const testWords2 = [""];
+const testWords3 = ["a"];
+const testWords4 = ["cider", "cried", "dicer", "repaid", "diaper", "paired"];
+const testWords5 = ["listen", "silent", "enlist", "inlets", "google", "gogole"];
+
+console.log(groupAnagrams(testWords1));
+console.log(groupAnagrams(testWords2));
+console.log(groupAnagrams(testWords3));
+console.log(groupAnagrams(testWords4));
+console.log(groupAnagrams(testWords5));
