@@ -240,3 +240,38 @@ solutions.forEach((solution, index) => {
     solution.forEach((row) => console.log(row));
     console.log("");
 });
+/**
+ * Finds the length of the shortest transformation sequence from beginWord to endWord.
+ * @param beginWord - The starting word.
+ * @param endWord - The target word.
+ * @param wordList - The list of available words for transformation.
+ * @returns The length of the shortest transformation sequence.
+ */
+function ladderLength(beginWord, endWord, wordList) {
+    const wordSet = new Set(wordList);
+    if (!wordSet.has(endWord))
+        return 0;
+    const queue = [[beginWord, 1]];
+    while (queue.length > 0) {
+        const [currentWord, level] = queue.shift();
+        if (currentWord === endWord) {
+            return level;
+        }
+        for (let i = 0; i < currentWord.length; i++) {
+            const currentCharArray = currentWord.split("");
+            for (let char = 97; char <= 122; char++) {
+                // a to z
+                currentCharArray[i] = String.fromCharCode(char);
+                const nextWord = currentCharArray.join("");
+                if (wordSet.has(nextWord)) {
+                    queue.push([nextWord, level + 1]);
+                    wordSet.delete(nextWord);
+                }
+            }
+        }
+    }
+    return 0;
+}
+console.log("Shortest transformation sequence length:", ladderLength("hit", "cog", ["hot", "dot", "dog", "lot", "log", "cog"]));
+console.log("Shortest transformation sequence length:", ladderLength("hit", "cog", ["hot", "dot", "dog", "lot", "log"]));
+console.log("Shortest transformation sequence length:", ladderLength("a", "c", ["a", "b", "c"]));
