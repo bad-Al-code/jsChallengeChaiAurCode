@@ -50,3 +50,113 @@ console.log("Median of [1, 2] and [3, 4]:", findMedianSortedArrays([1, 2], [3, 4
 console.log("Median of [0, 0] and [0, 0]:", findMedianSortedArrays([0, 0], [0, 0]));
 console.log("Median of [] and [1]:", findMedianSortedArrays([], [1]));
 console.log("Median of [1] and []:", findMedianSortedArrays([1], []));
+/*
+ Time: O(log(min(m, n))), where m -> length of nums1 and n -> length of nums2
+ Space: O(1)
+ */ // Definition for singly-linked list.
+class ListNode {
+    constructor(val, next = null) {
+        this.next = null;
+        this.val = val;
+        this.next = next;
+    }
+}
+class MinHeap {
+    constructor(compare) {
+        this.heap = [];
+        this.compare = compare;
+    }
+    push(item) {
+        this.heap.push(item);
+        this.bubbleUp(this.heap.length - 1);
+    }
+    pop() {
+        if (this.heap.length === 0)
+            return null;
+        const root = this.heap[0];
+        const end = this.heap.pop();
+        if (this.heap.length > 0) {
+            this.heap[0] = end;
+            this.bubbleDown(0);
+        }
+        return root;
+    }
+    get length() {
+        return this.heap.length;
+    }
+    bubbleUp(index) {
+        const element = this.heap[index];
+        let parentIndex = Math.floor((index - 1) / 2);
+        while (index > 0 && this.compare(element, this.heap[parentIndex]) < 0) {
+            this.heap[index] = this.heap[parentIndex];
+            index = parentIndex;
+            parentIndex = Math.floor((index - 1) / 2);
+        }
+        this.heap[index] = element;
+    }
+    bubbleDown(index) {
+        const length = this.heap.length;
+        const element = this.heap[index];
+        let leftChildIndex = 2 * index + 1;
+        let rightChildIndex = 2 * index + 2;
+        let smallest = index;
+        if (leftChildIndex < length &&
+            this.compare(this.heap[leftChildIndex], this.heap[smallest]) < 0) {
+            smallest = leftChildIndex;
+        }
+        if (rightChildIndex < length &&
+            this.compare(this.heap[rightChildIndex], this.heap[smallest]) < 0) {
+            smallest = rightChildIndex;
+        }
+        if (smallest !== index) {
+            [this.heap[index], this.heap[smallest]] = [
+                this.heap[smallest],
+                this.heap[index],
+            ];
+            this.bubbleDown(smallest);
+        }
+    }
+}
+/**
+ * Merges k sorted linked lists into one sorted linked list.
+ * @param lists - An array of k sorted linked lists.
+ * @returns The merged sorted linked list.
+ */
+function mergeKLists(lists) {
+    if (lists.length === 0)
+        return null;
+    const minHeap = new MinHeap((a, b) => a.val - b.val);
+    for (const list of lists) {
+        if (list) {
+            minHeap.push(list);
+        }
+    }
+    const dummyHead = new ListNode(0);
+    let current = dummyHead;
+    while (minHeap.length > 0) {
+        const node = minHeap.pop();
+        if (node) {
+            current.next = node;
+            current = current.next;
+            // If there's a next node, push it into the heap
+            if (node.next) {
+                minHeap.push(node.next);
+            }
+        }
+    }
+    return dummyHead.next;
+}
+function printList(head) {
+    let result = "";
+    let current = head;
+    while (current) {
+        result += `${current.val} -> `;
+        current = current.next;
+    }
+    console.log(result + "null");
+}
+const list1 = new ListNode(1, new ListNode(4, new ListNode(5)));
+const list2 = new ListNode(1, new ListNode(3, new ListNode(4)));
+const list3 = new ListNode(2, new ListNode(6));
+const mergedList = mergeKLists([list1, list2, list3]);
+printList(mergedList); // Expected: 1 -> 1 -> 2 -> 3 -> 4 -> 4 -> 5 -> 6 -> null
