@@ -235,3 +235,58 @@ console.log(
 console.log("Trapped water for [4,2,0,3,2,5]:", trap([4, 2, 0, 3, 2, 5]));
 console.log("Trapped water for [1,0,1]:", trap([1, 0, 1]));
 console.log("Trapped water for [3, 0, 2, 0, 4]:", trap([3, 0, 2, 0, 4]));
+
+/**
+ * Solves the N-Queens puzzle and returns all distinct solutions.
+ * @param n - The size of the chessboard (n*n).
+ * @returns A list of distinct solutions, where each solution is a list of strings.
+ */
+function solveNQueens(n: number): string[][] {
+  const solutions: string[][] = [];
+  const board: string[][] = Array.from({ length: n }, () => Array(n).fill("."));
+
+  const isSafe = (row: number, col: number): boolean => {
+    for (let i = 0; i < row; i++) {
+      if (board[i][col] === "Q") return false;
+    }
+
+    // Check upper left diagonal
+    for (let i = row, j = col; i >= 0 && j >= 0; i--, j--) {
+      if (board[i][j] === "Q") return false;
+    }
+
+    // Check upper right diagonal
+    for (let i = row, j = col; i >= 0 && j < n; i--, j++) {
+      if (board[i][j] === "Q") return false;
+    }
+
+    return true;
+  };
+
+  const solve = (row: number): void => {
+    if (row === n) {
+      solutions.push(board.map((row) => row.join("")));
+      return;
+    }
+
+    for (let col = 0; col < n; col++) {
+      if (isSafe(row, col)) {
+        board[row][col] = "Q";
+        solve(row + 1);
+        board[row][col] = "."; // Backtrack
+      }
+    }
+  };
+
+  solve(0);
+  return solutions;
+}
+
+const n = 4;
+const solutions = solveNQueens(n);
+console.log(`Distinct solutions for ${n}-Queens puzzle:`);
+solutions.forEach((solution, index) => {
+  console.log(`Solution ${index + 1}:`);
+  solution.forEach((row) => console.log(row));
+  console.log("");
+});
