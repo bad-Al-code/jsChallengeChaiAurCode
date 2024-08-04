@@ -195,3 +195,43 @@ const list2 = new ListNode(1, new ListNode(3, new ListNode(4)));
 const list3 = new ListNode(2, new ListNode(6));
 const mergedList = mergeKLists([list1, list2, list3]);
 printList(mergedList); // Expected: 1 -> 1 -> 2 -> 3 -> 4 -> 4 -> 5 -> 6 -> null
+
+/**
+ * Calculates the amount of water trapped after raining.
+ * @param height - An array representing the elevation map.
+ * @returns The amount of water that can be trapped.
+ */
+function trap(height: number[]): number {
+  if (height.length === 0) return 0;
+
+  const n = height.length;
+  const leftMax: number[] = new Array(n).fill(0);
+  const rightMax: number[] = new Array(n).fill(0);
+
+  // Fill left max array
+  leftMax[0] = height[0];
+  for (let i = 1; i < n; i++) {
+    leftMax[i] = Math.max(leftMax[i - 1], height[i]);
+  }
+
+  // Fill right max array
+  rightMax[n - 1] = height[n - 1];
+  for (let i = n - 2; i >= 0; i--) {
+    rightMax[i] = Math.max(rightMax[i + 1], height[i]);
+  }
+
+  let trappedWater = 0;
+  for (let i = 0; i < n; i++) {
+    trappedWater += Math.min(leftMax[i], rightMax[i]) - height[i];
+  }
+
+  return trappedWater;
+}
+
+console.log(
+  "Trapped water for [0,1,0,2,1,0,1,3,2,1,2,1]:",
+  trap([0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1]),
+);
+console.log("Trapped water for [4,2,0,3,2,5]:", trap([4, 2, 0, 3, 2, 5]));
+console.log("Trapped water for [1,0,1]:", trap([1, 0, 1]));
+console.log("Trapped water for [3, 0, 2, 0, 4]:", trap([3, 0, 2, 0, 4]));
