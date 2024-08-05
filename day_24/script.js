@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const searchButton = document.getElementById("search-button");
   const errorMessage = document.getElementById("error-message");
   const loadingIndicator = document.getElementById("loading");
+  const locationButton = document.getElementById("location-button");
 
   searchButton.addEventListener("click", () => {
     const city = cityInput.value.trim();
@@ -13,13 +14,35 @@ document.addEventListener("DOMContentLoaded", () => {
       fetchWeatherData(city);
       fetchFiveDayForecast(city);
     } else {
-      displayError("Plase enter a city name.");
+      displayError("Please enter a city name.");
+    }
+  });
+
+  locationButton.addEventListener("click", () => {
+    if (navigator.geolocation) {
+      clearError();
+      showLoading();
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const lat = position.coords.latitude;
+          const lon = position.coords.longitude;
+          fetchWeatherDataByCoordinates(lat, lon);
+          fetchFiveDayForecastByCoordinates(lat, lon);
+        },
+        (error) => {
+          console.error("Error getting location: ", error);
+          displayError("Unable to get current location.");
+        },
+        { timeout: 10000 }
+      );
+    } else {
+      displayError("Geolocation is not supported by this browser.");
     }
   });
 
   /**
-   * Fetch and dsiplay weather data for a given city
-   * @param {string} city - The name of the city to getch weatehr data for
+   * Fetch and display weather data for a given city
+   * @param {string} city - The name of the city to fetch weather data for
    */
   async function fetchWeatherData(city) {
     const apiUrl = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}`;
@@ -61,9 +84,66 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       displayFiveDayForecast(data);
     } catch (error) {
-      console.error("Error fetchinf 5-day weatehr forecast: ", error);
+      console.error("Error fetching 5-day weather forecast: ", error);
       displayError(
         "Unable to fetch 5-day forecast. Please check the city name and try again."
+      );
+    } finally {
+      hideLoading();
+    }
+  }
+
+  /**
+   * Fetch and display weather data for a given coordinates
+   * @param {number} lat - Latitude of the location
+   * @param {number} lon - Longitude of the location
+   */
+  async function fetchWeatherDataByCoordinates(lat, lon) {
+    const apiUrl = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${lat},${lon}`;
+
+    try {
+      const response = await fetch(apiUrl);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      if (data.error) {
+        throw new Error(data.error.message);
+      }
+
+      displayWeatherData(data);
+    } catch (error) {
+      console.error("Error fetching weather data by coordinates: ", error);
+      displayError(
+        "Unable to fetch weather data by current location. Please try again."
+      );
+    } finally {
+      hideLoading();
+    }
+  }
+
+  async function fetchFiveDayForecastByCoordinates(lat, lon) {
+    const apiUrl = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${lat},${lon}&days=5`;
+
+    try {
+      const response = await fetch(apiUrl);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      if (data.error) {
+        throw new Error(data.error.message);
+      }
+      displayFiveDayForecast(data);
+    } catch (error) {
+      console.error(
+        "Error fetching 5-day weather forecast by coordinates: ",
+        error
+      );
+      displayError(
+        "Unable to fetch 5-day forecast by current location. Please try again."
       );
     } finally {
       hideLoading();
@@ -95,14 +175,14 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /**
-   * Hide loading after data fetched
+   * Hide loading after data is fetched
    */
   function hideLoading() {
     loadingIndicator.style.display = "none";
   }
 
   /**
-   * Display weather data on teh web page
+   * Display weather data on the web page
    * @param {Object} data - The weather data object
    */
   function displayWeatherData(data) {
@@ -138,7 +218,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /**
-   * Display 5-Day weather forecast on web page
+   * Display 5-Day weather forecast on the web page
    * @param {Object} data - The forecast data object
    */
   function displayFiveDayForecast(data) {
