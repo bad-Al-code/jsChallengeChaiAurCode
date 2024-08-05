@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       const data = await response.json();
-      console.log("5-Day Weather Forecast: ", data);
+      // console.log("5-Day Weather Forecast: ", data);
       displayFiveDayForecast(data);
     } catch (error) {
       console.error("Error fetchinf 5-day weatehr forecast: ", error);
@@ -58,10 +58,27 @@ document.addEventListener("DOMContentLoaded", () => {
     const cityName = document.getElementById("city-name");
     const temperature = document.getElementById("temperature");
     const condition = document.getElementById("condition");
+    const weatherIcon = document.getElementById("weather-icon");
 
     cityName.textContent = data.location.name;
     temperature.textContent = data.current.temp_c;
     condition.textContent = data.current.condition.text;
+
+    const conditionCode = data.current.condition.code;
+    weatherIcon.innerHTML = getWeatherIcon(conditionCode);
+  }
+
+  function getWeatherIcon(code) {
+    switch (true) {
+      case code >= 1000 && code <= 1003:
+        return `<img src="assets/sunny.svg" alt="Sunny">`;
+      case code >= 1006 && code <= 1030:
+        return `<img src="assets/cloudy.svg" alt="Cloudy">`;
+      case code >= 1063 && code <= 1087:
+        return `<img src="assets/rainy.svg" alt="Rainy">`;
+      default:
+        return "";
+    }
   }
 
   /**
