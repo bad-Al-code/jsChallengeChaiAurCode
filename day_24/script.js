@@ -3,11 +3,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const cityInput = document.getElementById("city-input");
   const searchButton = document.getElementById("search-button");
   const errorMessage = document.getElementById("error-message");
+  const loadingIndicator = document.getElementById("loading");
 
   searchButton.addEventListener("click", () => {
     const city = cityInput.value.trim();
     if (city) {
       clearError();
+      showLoading();
       fetchWeatherData(city);
       fetchFiveDayForecast(city);
     } else {
@@ -39,6 +41,8 @@ document.addEventListener("DOMContentLoaded", () => {
       displayError(
         "Unable to fetch weather data. Please check the city name and try again."
       );
+    } finally {
+      hideLoading();
     }
   }
 
@@ -61,6 +65,8 @@ document.addEventListener("DOMContentLoaded", () => {
       displayError(
         "Unable to fetch 5-day forecast. Please check the city name and try again."
       );
+    } finally {
+      hideLoading();
     }
   }
 
@@ -79,6 +85,20 @@ document.addEventListener("DOMContentLoaded", () => {
   function clearError() {
     errorMessage.textContent = "";
     errorMessage.style.display = "none";
+  }
+
+  /**
+   * Show loading while fetching
+   */
+  function showLoading() {
+    loadingIndicator.style.display = "block";
+  }
+
+  /**
+   * Hide loading after data fetched
+   */
+  function hideLoading() {
+    loadingIndicator.style.display = "none";
   }
 
   /**
