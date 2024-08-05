@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
           console.error("Error getting location: ", error);
           displayError("Unable to get current location.");
         },
-        { timeout: 10000 }
+        { timeout: 10000 },
       );
     } else {
       displayError("Geolocation is not supported by this browser.");
@@ -105,7 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
     } catch (error) {
       console.error("Error fetching weather data: ", error);
       displayError(
-        "Unable to fetch weather data. Please check the city name and try again."
+        "Unable to fetch weather data. Please check the city name and try again.",
       );
     } finally {
       hideLoading();
@@ -133,7 +133,7 @@ document.addEventListener("DOMContentLoaded", () => {
     } catch (error) {
       console.error("Error fetching 5-day weather forecast: ", error);
       displayError(
-        "Unable to fetch 5-day forecast. Please check the city name and try again."
+        "Unable to fetch 5-day forecast. Please check the city name and try again.",
       );
     } finally {
       hideLoading();
@@ -163,7 +163,7 @@ document.addEventListener("DOMContentLoaded", () => {
     } catch (error) {
       console.error("Error fetching weather data by coordinates: ", error);
       displayError(
-        "Unable to fetch weather data by current location. Please try again."
+        "Unable to fetch weather data by current location. Please try again.",
       );
     } finally {
       hideLoading();
@@ -192,10 +192,10 @@ document.addEventListener("DOMContentLoaded", () => {
     } catch (error) {
       console.error(
         "Error fetching 5-day weather forecast by coordinates: ",
-        error
+        error,
       );
       displayError(
-        "Unable to fetch 5-day forecast by current location. Please try again."
+        "Unable to fetch 5-day forecast by current location. Please try again.",
       );
     } finally {
       hideLoading();
@@ -235,8 +235,8 @@ document.addEventListener("DOMContentLoaded", () => {
       forecastDay.innerHTML = `
         <h3>${new Date(day.date).toLocaleDateString()}</h3>
         <img src="https:${day.day.condition.icon}" alt="${
-        day.day.condition.text
-      }" />
+          day.day.condition.text
+        }" />
         <p><strong>Temp: ${day.day.avgtemp_c} °C</strong></p>
         <p><strong>Condition:</strong> ${day.day.condition.text}</p>
       `;
