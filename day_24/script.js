@@ -10,6 +10,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  /**
+   * Fetch and dsiplay weather data for a given city
+   * @param {string} city - The name of the city to getch weatehr data for
+   */
   async function fetchWeatherData(city) {
     const apiUrl = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}`;
 
@@ -20,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
 
       displayWeatherData(data);
     } catch (error) {
@@ -28,6 +32,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  /**
+   * Display weather data on teh web page
+   * @param {Object} data - The weather data object
+   */
   function displayWeatherData(data) {
     const cityName = document.getElementById("city-name");
     const temperature = document.getElementById("temperature");
