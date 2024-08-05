@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const city = cityInput.value.trim();
     if (city) {
       fetchWeatherData(city);
+      fetchFiveDayForecast(city);
     }
   });
 
@@ -29,6 +30,22 @@ document.addEventListener("DOMContentLoaded", () => {
       displayWeatherData(data);
     } catch (error) {
       console.error("Error fetching weather data: ", error);
+    }
+  }
+
+  async function fetchFiveDayForecast(city) {
+    const apiUrl = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${city}&days=5`;
+
+    try {
+      const response = await fetch(apiUrl);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log("5-Day Weather Forecast: ", data);
+    } catch (error) {
+      console.error("Error fetchinf 5-day weatehr forecast: ", error);
     }
   }
 
