@@ -1,17 +1,26 @@
 document.addEventListener("DOMContentLoaded", () => {
   const apiKey = "73d99aea1fcc471daad50158240508";
-  const city = "Delhi";
-  const weatherApiURL = `http://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}`;
+  const cityInput = document.getElementById("city-input");
+  const searchButton = document.getElementById("search-button");
 
-  async function fetchWeatherData(url) {
+  searchButton.addEventListener("click", () => {
+    const city = cityInput.value.trim();
+    if (city) {
+      fetchWeatherData(city);
+    }
+  });
+
+  async function fetchWeatherData(city) {
+    const apiUrl = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}`;
+
     try {
-      const response = await fetch(url);
+      const response = await fetch(apiUrl);
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
       const data = await response.json();
-      //   console.log(data);
+      console.log(data);
 
       displayWeatherData(data);
     } catch (error) {
@@ -28,6 +37,4 @@ document.addEventListener("DOMContentLoaded", () => {
     temperature.textContent = data.current.temp_c;
     condition.textContent = data.current.condition.text;
   }
-
-  fetchWeatherData(weatherApiURL);
 });
