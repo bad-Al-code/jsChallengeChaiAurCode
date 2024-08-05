@@ -2,12 +2,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const apiKey = "73d99aea1fcc471daad50158240508";
   const cityInput = document.getElementById("city-input");
   const searchButton = document.getElementById("search-button");
+  const errorMessage = document.getElementById("error-message");
 
   searchButton.addEventListener("click", () => {
     const city = cityInput.value.trim();
     if (city) {
+      clearError();
       fetchWeatherData(city);
       fetchFiveDayForecast(city);
+    } else {
+      displayError("Plase enter a city name.");
     }
   });
 
@@ -25,11 +29,16 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       const data = await response.json();
-      // console.log(data);
+      if (data.error) {
+        throw new Error(data.error.message);
+      }
 
       displayWeatherData(data);
     } catch (error) {
       console.error("Error fetching weather data: ", error);
+      displayError(
+        "Unable to fetch weather data. Please check the city name and try again."
+      );
     }
   }
 
@@ -43,11 +52,33 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       const data = await response.json();
-      // console.log("5-Day Weather Forecast: ", data);
+      if (data.error) {
+        throw new Error(data.error.message);
+      }
       displayFiveDayForecast(data);
     } catch (error) {
       console.error("Error fetchinf 5-day weatehr forecast: ", error);
+      displayError(
+        "Unable to fetch 5-day forecast. Please check the city name and try again."
+      );
     }
+  }
+
+  /**
+   * Display error message on the web page
+   * @param {string} message - The error message to display
+   */
+  function displayError(message) {
+    errorMessage.textContent = message;
+    errorMessage.style.display = "block";
+  }
+
+  /**
+   * Clear any existing error message
+   */
+  function clearError() {
+    errorMessage.textContent = "";
+    errorMessage.style.display = "none";
   }
 
   /**
@@ -68,6 +99,11 @@ document.addEventListener("DOMContentLoaded", () => {
     weatherIcon.innerHTML = getWeatherIcon(conditionCode);
   }
 
+  /**
+   * Get weather icon based on condition code
+   * @param {number} code - The condition code
+   * @returns {string} - HTML string for the weather icon
+   */
   function getWeatherIcon(code) {
     switch (true) {
       case code >= 1000 && code <= 1003:

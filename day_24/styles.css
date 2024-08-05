@@ -131,5 +131,15 @@ main {
 .forecast-day svg {
   width: 50px;
   height: 50px;
-  fill: #ffcc00; /* Default color, you can customize as needed */
+  fill: #ffcc00;
+}
+
+.error-message {
+  color: #e74c3c;
+  background-color: #f8d7da;
+  padding: 1em;
+  border-radius: 5px;
+  margin-top: 1em;
+  font-size: 1.1em;
+  display: none;
 }
