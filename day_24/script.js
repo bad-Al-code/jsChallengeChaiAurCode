@@ -44,6 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const data = await response.json();
       console.log("5-Day Weather Forecast: ", data);
+      displayFiveDayForecast(data);
     } catch (error) {
       console.error("Error fetchinf 5-day weatehr forecast: ", error);
     }
@@ -61,5 +62,27 @@ document.addEventListener("DOMContentLoaded", () => {
     cityName.textContent = data.location.name;
     temperature.textContent = data.current.temp_c;
     condition.textContent = data.current.condition.text;
+  }
+
+  /**
+   * Display 5-Day weather forecast on web page
+   * @param {Object} data - The forecast data object
+   */
+  function displayFiveDayForecast(data) {
+    const forecastDetails = document.getElementById("forecast-details");
+    forecastDetails.innerHTML = "";
+
+    data.forecast.forecastday.forEach((day) => {
+      const forecastDay = document.createElement("div");
+      forecastDay.className = "forecast-day";
+      forecastDay.innerHTML = `
+        <h3>${new Date(day.date).toLocaleDateString("en-US", {
+          weekday: "long",
+        })}</h3>
+        <p><strong>Temp:</strong> ${day.day.avgtemp_c}°C</p>
+        <p><strong>Condition:</strong> ${day.day.condition.text}</p> 
+      `;
+      forecastDetails.appendChild(forecastDay);
+    });
   }
 });

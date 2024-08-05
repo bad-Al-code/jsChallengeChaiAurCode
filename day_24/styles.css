@@ -91,3 +91,30 @@ main {
 #search-button:active {
   transform: scale(0.95);
 }
+
+#forecast {
+  margin-top: 2em;
+}
+
+#forecast-details {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.forecast-day {
+  background: #fff;
+  padding: 1em;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 150px;
+  margin: 0.5em;
+}
+.forecast-day h3 {
+  margin: 0.5em 0;
+  font-size: 1.2em;
+}
+.forecast-day p {
+  margin: 0.2em 0;
+}
