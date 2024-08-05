@@ -62,7 +62,8 @@ main {
   font-size: 1em;
   border: 2px solid #ccc;
   border-radius: 5px;
-  width: 200px;
+  width: 100%;
+  max-width: 300px;
   transition: all 0.3s ease;
 }
 
@@ -197,14 +198,54 @@ main {
 
 #unit-toggle {
   margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 1em;
 }
 
 #unit-toggle label {
   font-size: 1em;
-  margin: 0 10px;
   cursor: pointer;
 }
 
 #unit-toggle input[type="radio"] {
   margin-right: 5px;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  #search {
+    flex-direction: column;
+  }
+
+  #city-input {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  #search-button {
+    width: 100%;
+  }
+
+  #forecast-details {
+    flex-direction: column;
+  }
+
+  .forecast-day {
+    width: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  #weather {
+    padding: 1em;
+  }
+
+  #city-input {
+    width: 100%;
+  }
+
+  #search-button {
+    width: 100%;
+  }
 }
