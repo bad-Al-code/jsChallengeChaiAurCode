@@ -18,6 +18,27 @@
           <button id="search-button">Search</button>
         </div>
         <button id="location-button">Use Current Location</button>
+        <div id="unit-toggle">
+          <label for="unit-celsius">
+            <input
+              type="radio"
+              id="unit-celsius"
+              name="unit"
+              value="celsius"
+              checked
+            />
+            Celsius
+          </label>
+          <label for="unit-fahrenheit">
+            <input
+              type="radio"
+              id="unit-fahrenheit"
+              name="unit"
+              value="fahrenheit"
+            />
+            Fahrenheit
+          </label>
+        </div>
         <div id="loading" class="loading-indicator">Loading...</div>
         <div id="error-message" class="error-message"></div>
         <div id="weather-details">

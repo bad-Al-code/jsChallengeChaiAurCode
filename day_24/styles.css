@@ -194,3 +194,17 @@ main {
 #history-list li:hover {
   background-color: #f0f0f0;
 }
+
+#unit-toggle {
+  margin-top: 20px;
+}
+
+#unit-toggle label {
+  font-size: 1em;
+  margin: 0 10px;
+  cursor: pointer;
+}
+
+#unit-toggle input[type="radio"] {
+  margin-right: 5px;
+}

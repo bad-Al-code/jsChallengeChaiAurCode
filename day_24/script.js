@@ -6,9 +6,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const loadingIndicator = document.getElementById("loading");
   const locationButton = document.getElementById("location-button");
   const historyList = document.getElementById("history-list");
+  const unitRadios = document.querySelectorAll('input[name="unit"]');
 
-  // Load search history on page load
   loadSearchHistory();
+
+  let unit = "C";
 
   /**
    * Event listener for the search button. Fetches weather data and updates search history.
@@ -86,7 +88,7 @@ document.addEventListener("DOMContentLoaded", () => {
    * @param {string} city - The name of the city to fetch weather data for.
    */
   async function fetchWeatherData(city) {
-    const apiUrl = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}`;
+    const apiUrl = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}&units=${unit}`;
 
     try {
       const response = await fetch(apiUrl);
@@ -115,7 +117,7 @@ document.addEventListener("DOMContentLoaded", () => {
    * @param {string} city - The name of the city to fetch the 5-day forecast for.
    */
   async function fetchFiveDayForecast(city) {
-    const apiUrl = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${city}&days=5`;
+    const apiUrl = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${city}&days=5&units=${unit}`;
 
     try {
       const response = await fetch(apiUrl);
@@ -144,7 +146,7 @@ document.addEventListener("DOMContentLoaded", () => {
    * @param {number} lon - The longitude of the location.
    */
   async function fetchWeatherDataByCoordinates(lat, lon) {
-    const apiUrl = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${lat},${lon}`;
+    const apiUrl = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${lat},${lon}&units=${unit}`;
 
     try {
       const response = await fetch(apiUrl);
@@ -174,7 +176,7 @@ document.addEventListener("DOMContentLoaded", () => {
    * @param {number} lon - The longitude of the location.
    */
   async function fetchFiveDayForecastByCoordinates(lat, lon) {
-    const apiUrl = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${lat},${lon}&days=5`;
+    const apiUrl = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${lat},${lon}&days=5&units=${unit}`;
 
     try {
       const response = await fetch(apiUrl);
@@ -201,7 +203,49 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /**
-   * Display error message on the web page.
+   * Display weather data on the page.
+   * @param {Object} data - The weather data to display.
+   */
+  function displayWeatherData(data) {
+    const temperatureElement = document.getElementById("temperature");
+    const cityNameElement = document.getElementById("city-name");
+    const conditionElement = document.getElementById("condition");
+    const weatherIconElement = document.getElementById("weather-icon");
+
+    cityNameElement.textContent = data.location.name;
+    temperatureElement.textContent = `${data.current.temp_c} °C`;
+    conditionElement.textContent = data.current.condition.text;
+
+    // Set weather icon
+    const iconUrl = `https:${data.current.condition.icon}`;
+    weatherIconElement.innerHTML = `<img src="${iconUrl}" alt="${data.current.condition.text}" />`;
+  }
+
+  /**
+   * Display 5-day weather forecast on the page.
+   * @param {Object} data - The forecast data to display.
+   */
+  function displayFiveDayForecast(data) {
+    const forecastDetailsElement = document.getElementById("forecast-details");
+    forecastDetailsElement.innerHTML = "";
+
+    data.forecast.forecastday.forEach((day) => {
+      const forecastDay = document.createElement("div");
+      forecastDay.className = "forecast-day";
+      forecastDay.innerHTML = `
+        <h3>${new Date(day.date).toLocaleDateString()}</h3>
+        <img src="https:${day.day.condition.icon}" alt="${
+        day.day.condition.text
+      }" />
+        <p><strong>Temp: ${day.day.avgtemp_c} °C</strong></p>
+        <p><strong>Condition:</strong> ${day.day.condition.text}</p>
+      `;
+      forecastDetailsElement.appendChild(forecastDay);
+    });
+  }
+
+  /**
+   * Display an error message.
    * @param {string} message - The error message to display.
    */
   function displayError(message) {
@@ -210,7 +254,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /**
-   * Clear any existing error message.
+   * Clear the error message display.
    */
   function clearError() {
     errorMessage.textContent = "";
@@ -218,74 +262,27 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /**
-   * Show loading indicator.
+   * Show the loading indicator.
    */
   function showLoading() {
     loadingIndicator.style.display = "block";
   }
 
   /**
-   * Hide loading indicator.
+   * Hide the loading indicator.
    */
   function hideLoading() {
     loadingIndicator.style.display = "none";
   }
 
-  /**
-   * Display weather data on the web page.
-   * @param {Object} data - The weather data object.
-   */
-  function displayWeatherData(data) {
-    const cityName = document.getElementById("city-name");
-    const temperature = document.getElementById("temperature");
-    const condition = document.getElementById("condition");
-    const weatherIcon = document.getElementById("weather-icon");
-
-    cityName.textContent = data.location.name;
-    temperature.textContent = data.current.temp_c;
-    condition.textContent = data.current.condition.text;
-
-    const conditionCode = data.current.condition.code;
-    weatherIcon.innerHTML = getWeatherIcon(conditionCode);
-  }
-
-  /**
-   * Get weather icon based on condition code.
-   * @param {number} code - The condition code.
-   * @returns {string} - HTML string for the weather icon.
-   */
-  function getWeatherIcon(code) {
-    switch (true) {
-      case code >= 1000 && code <= 1003:
-        return `<img src="assets/sunny.svg" alt="Sunny">`;
-      case code >= 1006 && code <= 1030:
-        return `<img src="assets/cloudy.svg" alt="Cloudy">`;
-      case code >= 1063 && code <= 1087:
-        return `<img src="assets/rainy.svg" alt="Rainy">`;
-      default:
-        return "";
-    }
-  }
-
-  /**
-   * Display 5-Day weather forecast on the web page.
-   * @param {Object} data - The forecast data object.
-   */
-  function displayFiveDayForecast(data) {
-    const forecastDetails = document.getElementById("forecast-details");
-    forecastDetails.innerHTML = "";
-
-    data.forecast.forecastday.forEach((day) => {
-      const forecastDay = document.createElement("div");
-      forecastDay.className = "forecast-day";
-      forecastDay.innerHTML = `
-        <h3>${new Date(day.date).toLocaleDateString("en-US", {
-          weekday: "long",
-        })}</h3>
-        <p><strong>Temp:</strong> ${day.day.avgtemp_c}°C</p>
-        <p><strong>Condition:</strong> ${day.day.condition.text}</p> 
-      `;
-      forecastDetails.appendChild(forecastDay);
+  unitRadios.forEach((radio) => {
+    radio.addEventListener("change", (event) => {
+      unit = event.target.value;
+      const currentCity = cityInput.value.trim();
+      if (currentCity) {
+        fetchWeatherData(currentCity);
+        fetchFiveDayForecast(currentCity);
+      }
     });
-  }
+  });
 });
