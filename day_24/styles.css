@@ -172,3 +172,25 @@ main {
 #location-button:active {
   transform: scale(0.95);
 }
+
+#search-history {
+  margin-top: 20px;
+}
+
+#history-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+#history-list li {
+  background-color: white;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#history-list li:hover {
+  background-color: #f0f0f0;
+}

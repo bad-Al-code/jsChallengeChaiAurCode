@@ -13,13 +13,12 @@
     <main>
       <section id="weather">
         <h1>Current Weather</h1>
-        <button id="location-button">Use Current Location</button>
         <div id="search">
           <input type="text" id="city-input" placeholder="Enter city name" />
           <button id="search-button">Search</button>
         </div>
+        <button id="location-button">Use Current Location</button>
         <div id="loading" class="loading-indicator">Loading...</div>
-
         <div id="error-message" class="error-message"></div>
         <div id="weather-details">
           <div id="weather-icon"></div>
@@ -37,12 +36,15 @@
           <h2>5-Day Forecast</h2>
           <div id="forecast-details"></div>
         </div>
+        <div id="search-history">
+          <h2>Search History</h2>
+          <ul id="history-list"></ul>
+        </div>
       </section>
     </main>
     <footer>
       <p>&copy; 2024 Weather App</p>
     </footer>
-
     <script src="script.js"></script>
   </body>
 </html>

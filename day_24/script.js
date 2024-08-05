@@ -5,7 +5,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const errorMessage = document.getElementById("error-message");
   const loadingIndicator = document.getElementById("loading");
   const locationButton = document.getElementById("location-button");
+  const historyList = document.getElementById("history-list");
 
+  // Load search history on page load
+  loadSearchHistory();
+
+  /**
+   * Event listener for the search button. Fetches weather data and updates search history.
+   */
   searchButton.addEventListener("click", () => {
     const city = cityInput.value.trim();
     if (city) {
@@ -13,11 +20,15 @@ document.addEventListener("DOMContentLoaded", () => {
       showLoading();
       fetchWeatherData(city);
       fetchFiveDayForecast(city);
+      addCityToHistory(city);
     } else {
       displayError("Please enter a city name.");
     }
   });
 
+  /**
+   * Event listener for the location button. Fetches weather data based on the current location.
+   */
   locationButton.addEventListener("click", () => {
     if (navigator.geolocation) {
       clearError();
@@ -41,8 +52,38 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   /**
-   * Fetch and display weather data for a given city
-   * @param {string} city - The name of the city to fetch weather data for
+   * Load search history from localStorage and display it in the history list.
+   */
+  function loadSearchHistory() {
+    const history = JSON.parse(localStorage.getItem("searchHistory")) || [];
+    historyList.innerHTML = "";
+    history.forEach((city) => {
+      const listItem = document.createElement("li");
+      listItem.textContent = city;
+      listItem.addEventListener("click", () => {
+        cityInput.value = city;
+        searchButton.click();
+      });
+      historyList.appendChild(listItem);
+    });
+  }
+
+  /**
+   * Add a city to search history and update localStorage.
+   * @param {string} city - The city to add to history.
+   */
+  function addCityToHistory(city) {
+    let history = JSON.parse(localStorage.getItem("searchHistory")) || [];
+    if (!history.includes(city)) {
+      history.push(city);
+      localStorage.setItem("searchHistory", JSON.stringify(history));
+      loadSearchHistory();
+    }
+  }
+
+  /**
+   * Fetch and display weather data for a given city.
+   * @param {string} city - The name of the city to fetch weather data for.
    */
   async function fetchWeatherData(city) {
     const apiUrl = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}`;
@@ -69,6 +110,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  /**
+   * Fetch and display 5-day weather forecast for a given city.
+   * @param {string} city - The name of the city to fetch the 5-day forecast for.
+   */
   async function fetchFiveDayForecast(city) {
     const apiUrl = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${city}&days=5`;
 
@@ -94,9 +139,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /**
-   * Fetch and display weather data for a given coordinates
-   * @param {number} lat - Latitude of the location
-   * @param {number} lon - Longitude of the location
+   * Fetch and display weather data for given coordinates.
+   * @param {number} lat - The latitude of the location.
+   * @param {number} lon - The longitude of the location.
    */
   async function fetchWeatherDataByCoordinates(lat, lon) {
     const apiUrl = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${lat},${lon}`;
@@ -123,6 +168,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  /**
+   * Fetch and display 5-day weather forecast for given coordinates.
+   * @param {number} lat - The latitude of the location.
+   * @param {number} lon - The longitude of the location.
+   */
   async function fetchFiveDayForecastByCoordinates(lat, lon) {
     const apiUrl = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${lat},${lon}&days=5`;
 
@@ -151,8 +201,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /**
-   * Display error message on the web page
-   * @param {string} message - The error message to display
+   * Display error message on the web page.
+   * @param {string} message - The error message to display.
    */
   function displayError(message) {
     errorMessage.textContent = message;
@@ -160,7 +210,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /**
-   * Clear any existing error message
+   * Clear any existing error message.
    */
   function clearError() {
     errorMessage.textContent = "";
@@ -168,22 +218,22 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /**
-   * Show loading while fetching
+   * Show loading indicator.
    */
   function showLoading() {
     loadingIndicator.style.display = "block";
   }
 
   /**
-   * Hide loading after data is fetched
+   * Hide loading indicator.
    */
   function hideLoading() {
     loadingIndicator.style.display = "none";
   }
 
   /**
-   * Display weather data on the web page
-   * @param {Object} data - The weather data object
+   * Display weather data on the web page.
+   * @param {Object} data - The weather data object.
    */
   function displayWeatherData(data) {
     const cityName = document.getElementById("city-name");
@@ -200,9 +250,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /**
-   * Get weather icon based on condition code
-   * @param {number} code - The condition code
-   * @returns {string} - HTML string for the weather icon
+   * Get weather icon based on condition code.
+   * @param {number} code - The condition code.
+   * @returns {string} - HTML string for the weather icon.
    */
   function getWeatherIcon(code) {
     switch (true) {
@@ -218,8 +268,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /**
-   * Display 5-Day weather forecast on the web page
-   * @param {Object} data - The forecast data object
+   * Display 5-Day weather forecast on the web page.
+   * @param {Object} data - The forecast data object.
    */
   function displayFiveDayForecast(data) {
     const forecastDetails = document.getElementById("forecast-details");
