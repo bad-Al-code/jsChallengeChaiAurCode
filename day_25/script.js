@@ -14,10 +14,10 @@ async function searchMovies(query) {
     const data = await response.json();
 
     if (data.Response === "True") {
-      console.log(data.Search);
+      console.log("Movies found:", data.Search);
       displayMovies(data.Search);
     } else {
-      console.error(data.Error);
+      console.error("Search error:", data.Error);
       document.getElementById("movie-list").innerHTML = `<p>${data.Error}</p>`;
     }
   } catch (error) {
@@ -39,7 +39,7 @@ async function fetchMovieDetails(imdbID) {
       console.log("Movie details:", data);
       displayMovieDetails(data);
     } else {
-      console.error(data.Error);
+      console.error("Details error:", data.Error);
       document.getElementById("movie-details").innerHTML =
         `<p>${data.Error}</p>`;
     }
@@ -59,11 +59,11 @@ function displayMovies(movies) {
     movieElement.classList.add("movie");
 
     movieElement.innerHTML = `
-            <img src="${movie.Poster !== "N/A" ? movie.Poster : "path-to-default-image.jpg"}" alt="${movie.Title}">
-            <h3>${movie.Title}</h3>
-            <p>Release Year: ${movie.Year}</p>
-            <button class="more-info" data-imdbid="${movie.imdbID}">More Info</button>
-        `;
+      <img src="${movie.Poster !== "N/A" ? movie.Poster : "assets/default-image.jpg"}" alt="${movie.Title}">
+      <h3>${movie.Title}</h3>
+      <p>Release Year: ${movie.Year}</p>
+      <button class="more-info" data-imdbid="${movie.imdbID}">More Info</button>
+    `;
 
     movieList.appendChild(movieElement);
   });
@@ -80,7 +80,7 @@ function displayMovieDetails(movie) {
   const modal = document.getElementById("movie-modal");
   document.getElementById("modal-title").textContent = movie.Title;
   document.getElementById("modal-poster").src =
-    movie.Poster !== "N/A" ? movie.Poster : "path-to-default-image.jpg";
+    movie.Poster !== "N/A" ? movie.Poster : "assets/default-image.jpg";
   document.getElementById("modal-year").textContent = movie.Year;
   document.getElementById("modal-director").textContent = movie.Director;
   document.getElementById("modal-actors").textContent = movie.Actors;
@@ -88,7 +88,7 @@ function displayMovieDetails(movie) {
   document.getElementById("modal-genre").textContent = movie.Genre;
   document.getElementById("modal-language").textContent = movie.Language;
 
-  modal.style.display = "block"; // Show the modal
+  modal.style.display = "block";
 }
 
 document.querySelector(".close-button").addEventListener("click", function () {
