@@ -22,6 +22,8 @@ async function searchMovies(query) {
     }
   } catch (error) {
     console.error("Error fetching movie data:", error);
+    document.getElementById("movie-list").innerHTML =
+      `<p>Failed to fetch movie data. Please try again later.</p>`;
   }
 }
 
