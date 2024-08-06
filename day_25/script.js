@@ -14,7 +14,6 @@ async function searchMovies(query) {
     const data = await response.json();
 
     if (data.Response === "True") {
-      console.log("Movies found:", data.Search);
       displayMovies(data.Search);
     } else {
       console.error("Search error:", data.Error);
@@ -28,7 +27,6 @@ async function searchMovies(query) {
 }
 
 async function fetchMovieDetails(imdbID) {
-  console.log(`Fetching details for IMDb ID: ${imdbID}`);
   const apiKey = "191ec3a6";
   const url = `http://www.omdbapi.com/?i=${encodeURIComponent(imdbID)}&apikey=${apiKey}`;
   try {
@@ -36,7 +34,6 @@ async function fetchMovieDetails(imdbID) {
     const data = await response.json();
 
     if (data.Response === "True") {
-      console.log("Movie details:", data);
       displayMovieDetails(data);
     } else {
       console.error("Details error:", data.Error);
