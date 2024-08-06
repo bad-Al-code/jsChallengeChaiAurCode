@@ -36,7 +36,7 @@ function displayMovies(movies) {
     movieElement.innerHTML = `
             <img src="${movie.Poster !== "N/A" ? movie.Poster : "path-to-default-image.jpg"}" alt="${movie.Title}">
             <h3>${movie.Title}</h3>
-            <p>${movie.Year}</p>
+            <p>Release Year: ${movie.Year}</p>
         `;
 
     movieList.appendChild(movieElement);
