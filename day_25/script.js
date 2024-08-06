@@ -14,8 +14,10 @@ async function searchMovies(query) {
     const data = await response.json();
 
     if (data.Response === "True") {
+      console.log(data.Search);
       displayMovies(data.Search);
     } else {
+      console.error(data.Error);
       document.getElementById("movie-list").innerHTML = `<p>${data.Error}</p>`;
     }
   } catch (error) {
@@ -65,25 +67,37 @@ function displayMovies(movies) {
 
     movieList.appendChild(movieElement);
   });
-}
 
-document.getElementById("movie-list").addEventListener("click", function (e) {
-  if (e.target && e.target.classList.contains("more-info")) {
-    const imdbID = e.target.getAttribute("data-imdbid");
-    fetchMovieDetails(imdbID);
-  }
-});
+  document.getElementById("movie-list").addEventListener("click", function (e) {
+    if (e.target && e.target.classList.contains("more-info")) {
+      const imdbID = e.target.getAttribute("data-imdbid");
+      fetchMovieDetails(imdbID);
+    }
+  });
+}
 
 function displayMovieDetails(movie) {
-  const movieDetails = document.getElementById("movie-details");
-  movieDetails.innerHTML = `
-        <h2>${movie.Title}</h2>
-        <img src="${movie.Poster !== "N/A" ? movie.Poster : "path-to-default-image.jpg"}" alt="${movie.Title}">
-        <p><strong>Release Year:</strong> ${movie.Year}</p>
-        <p><strong>Director:</strong> ${movie.Director}</p>
-        <p><strong>Actors:</strong> ${movie.Actors}</p>
-        <p><strong>Plot:</strong> ${movie.Plot}</p>
-        <p><strong>Genre:</strong> ${movie.Genre}</p>
-        <p><strong>Language:</strong> ${movie.Language}</p>
-    `;
+  const modal = document.getElementById("movie-modal");
+  document.getElementById("modal-title").textContent = movie.Title;
+  document.getElementById("modal-poster").src =
+    movie.Poster !== "N/A" ? movie.Poster : "path-to-default-image.jpg";
+  document.getElementById("modal-year").textContent = movie.Year;
+  document.getElementById("modal-director").textContent = movie.Director;
+  document.getElementById("modal-actors").textContent = movie.Actors;
+  document.getElementById("modal-plot").textContent = movie.Plot;
+  document.getElementById("modal-genre").textContent = movie.Genre;
+  document.getElementById("modal-language").textContent = movie.Language;
+
+  modal.style.display = "block"; // Show the modal
 }
+
+document.querySelector(".close-button").addEventListener("click", function () {
+  document.getElementById("movie-modal").style.display = "none";
+});
+
+window.addEventListener("click", function (e) {
+  const modal = document.getElementById("movie-modal");
+  if (e.target === modal) {
+    modal.style.display = "none";
+  }
+});
