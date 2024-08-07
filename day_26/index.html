@@ -12,27 +12,19 @@
         <h1>Chat Application</h1>
       </header>
       <main class="chat-main">
-        <div class="chat-sidebar">
-          <h2>Chat Rooms</h2>
-          <ul class="rooms-list">
-            <li>Room 1</li>
-            <li>Room 2</li>
-            <li>Room 3</li>
-          </ul>
-        </div>
-        <div class="chat-content">
+        <div class="chat-window" id="chatWindow">
           <div class="messages" id="messages"></div>
-          <form class="message-form" id="messageForm">
-            <input
-              type="text"
-              class="message-input"
-              id="messageInput"
-              placeholder="Type a message..."
-              required
-            />
-            <button type="submit" class="send-button">Send</button>
-          </form>
         </div>
+        <form class="message-form" id="messageForm">
+          <input
+            type="text"
+            class="message-input"
+            id="messageInput"
+            placeholder="Type a message..."
+            required
+          />
+          <button type="submit" class="send-button">Send</button>
+        </form>
       </main>
     </div>
     <script>
@@ -77,6 +69,7 @@
           const messageElement = document.createElement("div");
           messageElement.textContent = message;
           messagesDiv.appendChild(messageElement);
+          messagesDiv.scrollTop = messagesDiv.scrollHeight;
         }
       });
     </script>
