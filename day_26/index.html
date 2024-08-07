@@ -111,11 +111,14 @@
         }
 
         function displayReceivedMessage(data) {
-          const { username, message } = JSON.parse(data);
-          console.log(`Received from ${username}: ${message}`);
+          const { username: sender, message } = JSON.parse(data);
           const messagesDiv = document.getElementById("messages");
           const messageElement = document.createElement("div");
-          messageElement.innerHTML = `<strong>${username}:</strong> ${message}`;
+          messageElement.classList.add("message");
+          messageElement.classList.add(
+            sender === username ? "current-user" : "other-user",
+          );
+          messageElement.innerHTML = `<strong>${sender}:</strong> ${message}`;
           messagesDiv.appendChild(messageElement);
           messagesDiv.scrollTop = messagesDiv.scrollHeight;
         }
