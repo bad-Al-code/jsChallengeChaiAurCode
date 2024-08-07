@@ -35,6 +35,50 @@
         </div>
       </main>
     </div>
-    <script src="./script.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const ws = new WebSocket("ws://localhost:8080");
+
+        ws.onopen = () => {
+          console.log("Connected to the WebSocket server");
+        };
+
+        ws.onmessage = (event) => {
+          handleIncomingMessage(event.data);
+        };
+
+        ws.onclose = () => {
+          console.log("Disconnected from the WebSocket server");
+        };
+
+        ws.onerror = (error) => {
+          console.error("WebSocket error:", error);
+        };
+
+        const messageForm = document.getElementById("messageForm");
+        const messageInput = document.getElementById("messageInput");
+
+        messageForm.addEventListener("submit", (event) => {
+          event.preventDefault();
+          sendMessage(messageInput.value);
+          messageInput.value = "";
+        });
+
+        function sendMessage(message) {
+          if (message.trim()) {
+            ws.send(message);
+            console.log(`Sent: ${message}`);
+          }
+        }
+
+        function handleIncomingMessage(message) {
+          console.log(`Received: ${message}`);
+          const messagesDiv = document.getElementById("messages");
+          const messageElement = document.createElement("div");
+          messageElement.textContent = message;
+          messagesDiv.appendChild(messageElement);
+        }
+      });
+    </script>
   </body>
 </html>
