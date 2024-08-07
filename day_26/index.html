@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chat Application</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="chat-container">
+      <header class="chat-header">
+        <h1>Chat Application</h1>
+      </header>
+      <main class="chat-main">
+        <div id="login" class="login">
+          <form id="loginForm" class="login-form">
+            <input
+              type="text"
+              id="usernameInput"
+              class="username-input"
+              placeholder="Enter your username"
+              required
+            />
+            <button type="submit" class="login-button">Join Chat</button>
+          </form>
+        </div>
+        <div id="chat" class="chat hidden">
+          <div class="chat-window" id="chatWindow">
+            <div class="messages" id="messages"></div>
+          </div>
+          <form class="message-form" id="messageForm">
+            <input
+              type="text"
+              class="message-input"
+              id="messageInput"
+              placeholder="Type a message..."
+              required
+            />
+            <button type="submit" class="send-button">Send</button>
+          </form>
+        </div>
+      </main>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        let username = localStorage.getItem("username") || "";
+        const ws = new WebSocket("ws://localhost:8080");
+
+        ws.onopen = () => {
+          console.log("Connected to the WebSocket server");
+        };
+
+        ws.onmessage = (event) => {
+          handleIncomingMessage(event.data);
+        };
+
+        ws.onclose = () => {
+          console.log("Disconnected from the WebSocket server");
+        };
+
+        ws.onerror = (error) => {
+          console.error("WebSocket error:", error);
+        };
+
+        const loginForm = document.getElementById("loginForm");
+        const usernameInput = document.getElementById("usernameInput");
+        const messageForm = document.getElementById("messageForm");
+        const messageInput = document.getElementById("messageInput");
+        const messagesDiv = document.getElementById("messages");
+
+        if (username) {
+          document.getElementById("login").style.display = "none";
+          document.getElementById("chat").style.display = "block";
+          usernameInput.value = username;
+          loadChatHistory();
+        }
+
+        loginForm.addEventListener("submit", (event) => {
+          event.preventDefault();
+          username = usernameInput.value.trim();
+          if (username) {
+            localStorage.setItem("username", username);
+            document.getElementById("login").style.display = "none";
+            document.getElementById("chat").style.display = "block";
+            saveChatHistory();
+          }
+        });
+
+        messageForm.addEventListener("submit", (event) => {
+          event.preventDefault();
+          sendMessage(messageInput.value);
+          messageInput.value = "";
+        });
+
+        messageInput.addEventListener("keydown", (event) => {
+          if (event.key === "Enter" && !event.shiftKey) {
+            event.preventDefault();
+            sendMessage(messageInput.value);
+            messageInput.value = "";
+          }
+        });
+
+        function sendMessage(message) {
+          if (message.trim() && username) {
+            const messageData = JSON.stringify({ username, message });
+            ws.send(messageData);
+            console.log(`Sent: ${messageData}`);
+            displayReceivedMessage(messageData);
+            saveChatHistory();
+          }
+        }
+
+        function handleIncomingMessage(data) {
+          if (data instanceof Blob) {
+            const reader = new FileReader();
+            reader.onload = () => {
+              displayReceivedMessage(reader.result);
+            };
+            reader.readAsText(data);
+          } else {
+            displayReceivedMessage(data);
+          }
+        }
+
+        function displayReceivedMessage(data) {
+          const { username: sender, message } = JSON.parse(data);
+          const messageElement = document.createElement("div");
+
+          messageElement.classList.add("message");
+          messageElement.classList.add(
+            sender === username ? "current-user" : "other-user",
+          );
+          messageElement.innerHTML = `<strong>${sender}:</strong> ${message}`;
+          messagesDiv.appendChild(messageElement);
+
+          // Auto-scroll to the bottom if needed
+          messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        function saveChatHistory() {
+          const messages = Array.from(messagesDiv.children).map(
+            (msg) => msg.outerHTML,
+          );
+          sessionStorage.setItem("chatHistory", JSON.stringify(messages));
+        }
+
+        function loadChatHistory() {
+          const savedMessages = sessionStorage.getItem("chatHistory");
+          if (savedMessages) {
+            const messages = JSON.parse(savedMessages);
+            messages.forEach((msgHTML) => {
+              const messageElement = document.createElement("div");
+              messageElement.innerHTML = msgHTML;
+              messagesDiv.appendChild(messageElement);
+            });
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
