@@ -35,7 +35,6 @@ body {
   border-radius: 8px;
   display: flex;
   flex-direction: column;
-  height: 90vh;
 }
 
 .chat-header {
