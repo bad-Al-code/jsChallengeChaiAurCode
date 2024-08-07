@@ -36,7 +36,7 @@
         };
 
         ws.onmessage = (event) => {
-          displayReceivedMessage(event.data);
+          handleIncomingMessage(event.data);
         };
 
         ws.onclose = () => {
@@ -68,6 +68,18 @@
           if (message.trim()) {
             ws.send(message);
             console.log(`Sent: ${message}`);
+          }
+        }
+
+        function handleIncomingMessage(data) {
+          if (data instanceof Blob) {
+            const reader = new FileReader();
+            reader.onload = () => {
+              displayReceivedMessage(reader.result);
+            };
+            reader.readAsText(data);
+          } else {
+            displayReceivedMessage(data);
           }
         }
 
