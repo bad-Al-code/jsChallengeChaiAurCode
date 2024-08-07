@@ -95,6 +95,7 @@
             const messageData = JSON.stringify({ username, message });
             ws.send(messageData);
             console.log(`Sent: ${messageData}`);
+            displayReceivedMessage(messageData);
           }
         }
 
@@ -114,6 +115,7 @@
           const { username: sender, message } = JSON.parse(data);
           const messagesDiv = document.getElementById("messages");
           const messageElement = document.createElement("div");
+
           messageElement.classList.add("message");
           messageElement.classList.add(
             sender === username ? "current-user" : "other-user",

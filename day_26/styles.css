@@ -58,7 +58,6 @@ body {
   flex-grow: 1;
   overflow-y: auto;
   padding: 10px;
-  border-bottom: 1px solid var(--border-color);
 }
 
 .messages {
@@ -74,12 +73,24 @@ body {
   margin-bottom: 5px;
   animation: fadeIn 0.5s ease-out;
   transition: background-color 0.3s ease;
+  max-width: 70%;
+  word-wrap: break-word;
+}
+
+.current-user {
+  background-color: #d4f1d4;
+  align-self: flex-end;
 }
 
 .message.current-user {
   background-color: var(--current-user-color);
   align-self: flex-end;
   text-align: right;
+}
+
+.other-user {
+  background-color: #f1d4d4;
+  align-self: flex-start;
 }
 
 .message.other-user {
