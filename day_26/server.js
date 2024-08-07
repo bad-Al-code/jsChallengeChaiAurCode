@@ -1,17 +1,15 @@
 const WebSocket = require("ws");
 
-const PORT = 8080;
-const wss = new WebSocket.Server({ port: PORT });
+const wss = new WebSocket.Server({ port: 8080 });
 
 wss.on("connection", (ws) => {
-  console.log("New client connected");
+  console.log("Client connected");
 
-  ws.on("message", (message) => {
-    console.log(`Received: ${message}`);
-
+  ws.on("message", (data) => {
+    console.log("Received:", data);
     wss.clients.forEach((client) => {
       if (client !== ws && client.readyState === WebSocket.OPEN) {
-        client.send(message);
+        client.send(data);
       }
     });
   });
@@ -24,5 +22,4 @@ wss.on("connection", (ws) => {
     console.error("WebSocket error:", error);
   });
 });
-
 console.log(`WebSocket server is running on ws://localhost:${PORT}`);

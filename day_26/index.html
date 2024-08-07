@@ -12,23 +12,38 @@
         <h1>Chat Application</h1>
       </header>
       <main class="chat-main">
-        <div class="chat-window" id="chatWindow">
-          <div class="messages" id="messages"></div>
+        <div id="login" class="login">
+          <form id="loginForm" class="login-form">
+            <input
+              type="text"
+              id="usernameInput"
+              class="username-input"
+              placeholder="Enter your username"
+              required
+            />
+            <button type="submit" class="login-button">Join Chat</button>
+          </form>
         </div>
-        <form class="message-form" id="messageForm">
-          <input
-            type="text"
-            class="message-input"
-            id="messageInput"
-            placeholder="Type a message..."
-            required
-          />
-          <button type="submit" class="send-button">Send</button>
-        </form>
+        <div id="chat" class="chat hidden">
+          <div class="chat-window" id="chatWindow">
+            <div class="messages" id="messages"></div>
+          </div>
+          <form class="message-form" id="messageForm">
+            <input
+              type="text"
+              class="message-input"
+              id="messageInput"
+              placeholder="Type a message..."
+              required
+            />
+            <button type="submit" class="send-button">Send</button>
+          </form>
+        </div>
       </main>
     </div>
     <script>
       document.addEventListener("DOMContentLoaded", () => {
+        let username;
         const ws = new WebSocket("ws://localhost:8080");
 
         ws.onopen = () => {
@@ -47,8 +62,19 @@
           console.error("WebSocket error:", error);
         };
 
+        const loginForm = document.getElementById("loginForm");
+        const usernameInput = document.getElementById("usernameInput");
         const messageForm = document.getElementById("messageForm");
         const messageInput = document.getElementById("messageInput");
+
+        loginForm.addEventListener("submit", (event) => {
+          event.preventDefault();
+          username = usernameInput.value.trim();
+          if (username) {
+            document.getElementById("login").classList.add("hidden");
+            document.getElementById("chat").classList.remove("hidden");
+          }
+        });
 
         messageForm.addEventListener("submit", (event) => {
           event.preventDefault();
@@ -65,9 +91,10 @@
         });
 
         function sendMessage(message) {
-          if (message.trim()) {
-            ws.send(message);
-            console.log(`Sent: ${message}`);
+          if (message.trim() && username) {
+            const messageData = JSON.stringify({ username, message });
+            ws.send(messageData);
+            console.log(`Sent: ${messageData}`);
           }
         }
 
@@ -83,11 +110,12 @@
           }
         }
 
-        function displayReceivedMessage(message) {
-          console.log(`Received: ${message}`);
+        function displayReceivedMessage(data) {
+          const { username, message } = JSON.parse(data);
+          console.log(`Received from ${username}: ${message}`);
           const messagesDiv = document.getElementById("messages");
           const messageElement = document.createElement("div");
-          messageElement.textContent = message;
+          messageElement.innerHTML = `<strong>${username}:</strong> ${message}`;
           messagesDiv.appendChild(messageElement);
           messagesDiv.scrollTop = messagesDiv.scrollHeight;
         }
