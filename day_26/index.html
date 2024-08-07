@@ -43,7 +43,7 @@
     </div>
     <script>
       document.addEventListener("DOMContentLoaded", () => {
-        let username;
+        let username = localStorage.getItem("username") || "";
         const ws = new WebSocket("ws://localhost:8080");
 
         ws.onopen = () => {
@@ -66,13 +66,23 @@
         const usernameInput = document.getElementById("usernameInput");
         const messageForm = document.getElementById("messageForm");
         const messageInput = document.getElementById("messageInput");
+        const messagesDiv = document.getElementById("messages");
+
+        if (username) {
+          document.getElementById("login").style.display = "none";
+          document.getElementById("chat").style.display = "block";
+          usernameInput.value = username;
+          loadChatHistory();
+        }
 
         loginForm.addEventListener("submit", (event) => {
           event.preventDefault();
           username = usernameInput.value.trim();
           if (username) {
+            localStorage.setItem("username", username);
             document.getElementById("login").style.display = "none";
             document.getElementById("chat").style.display = "block";
+            saveChatHistory();
           }
         });
 
@@ -96,6 +106,7 @@
             ws.send(messageData);
             console.log(`Sent: ${messageData}`);
             displayReceivedMessage(messageData);
+            saveChatHistory();
           }
         }
 
@@ -113,7 +124,6 @@
 
         function displayReceivedMessage(data) {
           const { username: sender, message } = JSON.parse(data);
-          const messagesDiv = document.getElementById("messages");
           const messageElement = document.createElement("div");
 
           messageElement.classList.add("message");
@@ -122,7 +132,29 @@
           );
           messageElement.innerHTML = `<strong>${sender}:</strong> ${message}`;
           messagesDiv.appendChild(messageElement);
+
+          // Auto-scroll to the bottom if needed
           messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        function saveChatHistory() {
+          const messages = Array.from(messagesDiv.children).map(
+            (msg) => msg.outerHTML,
+          );
+          sessionStorage.setItem("chatHistory", JSON.stringify(messages));
+        }
+
+        function loadChatHistory() {
+          const savedMessages = sessionStorage.getItem("chatHistory");
+          if (savedMessages) {
+            const messages = JSON.parse(savedMessages);
+            messages.forEach((msgHTML) => {
+              const messageElement = document.createElement("div");
+              messageElement.innerHTML = msgHTML;
+              messagesDiv.appendChild(messageElement);
+            });
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+          }
         }
       });
     </script>
