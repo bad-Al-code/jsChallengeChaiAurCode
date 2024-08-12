@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Wireless Headphones",
+    "price": 79.99,
+    "description": "High-quality wireless headphones with noise-cancellation and long battery life.",
+    "imageUrl": "https://images.unsplash.com/photo-1601925489896-66fdac0c42e5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDJ8fHdpcmVsaXNzJTIwaGVhZHBob25lc3xlbnwwfHx8fDE2NDkwNjQ1MjQ&ixlib=rb-1.2.1&q=80&w=400"
+  },
+  {
+    "name": "Smartphone",
+    "price": 699.99,
+    "description": "Latest model smartphone with a high-resolution display, fast processor, and excellent camera.",
+    "imageUrl": "https://images.unsplash.com/photo-1601925489957-4343721b2eb0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDJ8fHNtb2JpbGV8ZW58MHx8fDE2NDkwNjQ1MzE&ixlib=rb-1.2.1&q=80&w=400"
+  },
+  {
+    "name": "Smart Watch",
+    "price": 199.99,
+    "description": "Stylish smart watch with fitness tracking, notifications, and customizable watch faces.",
+    "imageUrl": "https://images.unsplash.com/photo-1601925489860-94b6a8dbcfb2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDgxfHNtYXJ0JTIwd2F0Y2h8ZW58MHx8fDE2NDkwNjQ1MzI&ixlib=rb-1.2.1&q=80&w=400"
+  },
+  {
+    "name": "Laptop",
+    "price": 1199.99,
+    "description": "High-performance laptop with a sleek design, powerful processor, and ample storage.",
+    "imageUrl": "https://images.unsplash.com/photo-1601925489895-bb72eebd95b2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDkxfGxhcHRvcHxlbnwwfHx8fDE2NDkwNjQ1MzM&ixlib=rb-1.2.1&q=80&w=400"
+  },
+  {
+    "name": "Bluetooth Speaker",
+    "price": 49.99,
+    "description": "Portable Bluetooth speaker with excellent sound quality and long battery life.",
+    "imageUrl": "https://images.unsplash.com/photo-1601925489894-8109463d4a0f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDEwfGJsdWV0b290aCUyMHNwZWFrZXxlbnwwfHx8fDE2NDkwNjQ1MzU&ixlib=rb-1.2.1&q=80&w=400"
+  }
+]
