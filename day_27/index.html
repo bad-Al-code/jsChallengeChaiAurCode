@@ -14,14 +14,47 @@
 
       <main>
         <section id="task-input">
-          <input type="text" id="new-task" placeholder="Enter a new task" />
-          <button id="add-task">Add Task</button>
+          <h2>Add a New Task</h2>
+          <form id="task-form">
+            <div class="form-group">
+              <label for="task-title">Title</label>
+              <input
+                type="text"
+                id="task-title"
+                name="task-title"
+                placeholder="Enter task title"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="task-desc">Description</label>
+              <textarea
+                id="task-desc"
+                name="task-desc"
+                placeholder="Enter task description"
+                required
+              ></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="task-due-date">Due Date</label>
+              <input
+                type="date"
+                id="task-due-date"
+                name="task-due-date"
+                required
+              />
+            </div>
+
+            <button type="submit" id="add-task">Add Task</button>
+          </form>
         </section>
 
         <section id="task-list">
           <h2>Tasks</h2>
           <ul id="tasks">
-            <!-- Task  -->
+            <!-- Task items will go here -->
           </ul>
         </section>
       </main>
