@@ -15,6 +15,7 @@
           <li><a href="#notifications">Notifications</a></li>
           <li><a href="#messages">Messages</a></li>
           <li><a href="#profile">Profile</a></li>
+          <li><a href="#login">Login</a></li>
         </ul>
       </nav>
     </header>
@@ -26,6 +27,7 @@
             <h3>Create a New Post</h3>
             <label for="post-title">Title:</label>
             <input type="text" id="post-title" name="post-title" required />
+
             <label for="post-content">Content:</label>
             <textarea
               id="post-content"
@@ -33,26 +35,34 @@
               rows="4"
               required
             ></textarea>
+
+            <label for="post-image">Image:</label>
+            <input
+              type="file"
+              id="post-image"
+              name="post-image"
+              accept="image/*"
+            />
+
             <button type="submit">Post</button>
           </form>
           <div id="posts">
-            <!-- Posts-->
+            <!-- Posts will be dynamically added here -->
           </div>
         </div>
       </section>
       <section id="notifications">
         <h2>Notifications</h2>
-        <!-- Notifications-->
+        <!-- Notifications content will go here -->
       </section>
       <section id="messages">
         <h2>Messages</h2>
-        <!-- Messages-->
+        <!-- Messages content will go here -->
       </section>
       <section id="profile">
         <h2>Profile</h2>
-        <!-- Profile-->
+        <!-- Profile content will go here -->
       </section>
-
       <section id="login">
         <h2>Login</h2>
         <form id="login-form">
