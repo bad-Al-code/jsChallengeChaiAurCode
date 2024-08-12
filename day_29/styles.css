@@ -1,0 +1,280 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+header {
+  background-color: #333;
+  color: #fff;
+  padding: 1rem;
+}
+
+header h1 {
+  margin: 0;
+}
+
+nav ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+nav ul li {
+  display: inline;
+  margin-right: 10px;
+}
+
+nav ul li a {
+  color: #fff;
+  text-decoration: none;
+}
+
+main {
+  padding: 1rem;
+}
+
+footer {
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 0.5rem;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.post-container {
+  margin: 1rem 0;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+#post-form {
+  margin-bottom: 1rem;
+}
+
+#post-form h3 {
+  margin-top: 0;
+}
+
+#post-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+#post-form input,
+#post-form textarea {
+  width: 50%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+#post-form button {
+  padding: 0.5rem 1rem;
+  border: none;
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#post-form button:hover {
+  background-color: #0056b3;
+}
+
+#posts {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 10px;
+}
+
+.post {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  padding: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.post h4 {
+  margin: 0 0 10px;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.post img {
+  margin-top: 10px;
+  border-radius: 8px;
+  max-width: 100%;
+  height: auto;
+}
+.post p {
+  margin: 0;
+  line-height: 1.6;
+  color: #555;
+}
+
+#login {
+  margin: 2rem auto;
+  padding: 1rem;
+  max-width: 400px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+#login h2 {
+  margin-top: 0;
+}
+
+#login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+#login-form label {
+  margin-bottom: 0.5rem;
+}
+
+#login-form input {
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+#login-form button {
+  padding: 0.5rem;
+  border: none;
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#login-form button:hover {
+  background-color: #0056b3;
+}
+
+/* Post form styling */
+.post-container {
+  margin: 1rem 0;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+#post-form {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 15px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#post-form h3 {
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+#post-form label {
+  margin-bottom: 0.5rem;
+}
+
+#post-form input[type="text"],
+#post-form textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+#post-form input[type="file"] {
+  margin-top: 10px;
+}
+
+#post-form button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+#post-form button:hover {
+  background-color: #0056b3;
+}
+
+/* Post styling */
+.post {
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.post-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  font-size: 0.85rem;
+  color: #555;
+}
+
+.post-username {
+  font-weight: bold;
+}
+
+.post-timestamp {
+  color: #888;
+}
+
+/* Post actions styling */
+.post-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+.post-actions button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.post-actions button:hover {
+  background-color: #0056b3;
+}
+
+/* Comments section styling */
+.comments-section {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #ddd;
+}
+
+.comments-section p {
+  margin: 5px 0;
+  font-size: 0.9rem;
+  color: #555;
+}
