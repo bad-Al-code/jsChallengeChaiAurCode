@@ -3,6 +3,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const cartItems = document.getElementById("cart-items");
   const cartCount = document.getElementById("cart-count");
   const cartTotal = document.getElementById("cart-total");
+  const paymentMethodSelect = document.getElementById("payment-method");
+  const creditCardDetails = document.getElementById("credit-card-details");
 
   let cart = [];
 
@@ -122,4 +124,12 @@ document.addEventListener("DOMContentLoaded", () => {
     cart = cart.filter((item) => item.name !== name);
     updateCartDisplay();
   }
+
+  paymentMethodSelect.addEventListener("change", () => {
+    if (paymentMethodSelect.value === "credit-card") {
+      creditCardDetails.style.display = "block";
+    } else {
+      creditCardDetails.style.display = "none";
+    }
+  });
 });

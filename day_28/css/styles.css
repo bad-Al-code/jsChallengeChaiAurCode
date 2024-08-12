@@ -300,6 +300,68 @@ nav {
   border-radius: 5px;
 }
 
+/* Checkout Form Styles */
+#checkout {
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+#checkout h2 {
+  margin-bottom: 20px;
+  font-size: 1.8em;
+  color: #333;
+}
+
+#checkout-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #333;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+#credit-card-details {
+  display: none;
+}
+
+button[type="submit"] {
+  background: #28a745;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 1em;
+  transition: background 0.3s;
+}
+
+button[type="submit"]:hover {
+  background: #218838;
+}
+
+#payment-method[value="credit-card"]:checked ~ #credit-card-details {
+  display: block;
+}
+
 /* Footer */
 footer {
   background: #333;
