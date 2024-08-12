@@ -52,6 +52,7 @@ function displayTasks() {
             <p>${task.description}</p>
             <small>Due Date: ${task.dueDate}</small>
             <button class="edit-task" onclick="editTask(${task.id})">Edit</button>
+            <button class="delete-task" onclick="deleteTask(${task.id})">Delete</button>
         `;
     taskList.appendChild(taskItem);
   });
@@ -68,6 +69,15 @@ function editTask(taskId) {
     document
       .getElementById("task-form")
       .setAttribute("data-editing-task-id", taskId);
+  }
+}
+
+function deleteTask(taskId) {
+  const taskIndex = tasks.findIndex((task) => task.id === taskId);
+
+  if (taskIndex > -1) {
+    tasks.splice(taskIndex, 1);
+    displayTasks();
   }
 }
 
