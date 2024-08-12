@@ -51,6 +51,15 @@
           </form>
         </section>
 
+        <div id="confirmation-modal" class="modal">
+          <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <p>Are you sure you want to delete this task?</p>
+            <button id="confirm-delete-btn">Yes, delete</button>
+            <button onclick="closeModal()">Cancel</button>
+          </div>
+        </div>
+
         <section id="task-list">
           <h2>Tasks</h2>
           <ul id="tasks">

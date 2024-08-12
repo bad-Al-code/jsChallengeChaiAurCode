@@ -53,7 +53,7 @@ function displayTasks() {
             <small>Due Date: ${task.dueDate}</small>
             <div class="button-container">
                 <button class="edit-task" onclick="editTask(${task.id})">Edit</button>
-                <button class="delete-task" onclick="deleteTask(${task.id})">Delete</button>
+                <button class="delete-task" onclick="showModal(${task.id})">Delete</button>
             </div>
         `;
     taskList.appendChild(taskItem);
@@ -75,19 +75,35 @@ function editTask(taskId) {
 }
 
 function deleteTask(taskId) {
-  const confirmation = window.confirm(
-    "Are you sure you want to delete this task?",
-  );
+  const taskIndex = tasks.findIndex((task) => task.id === taskId);
 
-  if (confirmation) {
-    const taskIndex = tasks.findIndex((task) => task.id === taskId);
-
-    if (taskIndex > -1) {
-      tasks.splice(taskIndex, 1);
-      displayTasks();
-    }
+  if (taskIndex > -1) {
+    tasks.splice(taskIndex, 1);
+    displayTasks();
   }
 }
+
+let taskIdToDelete = null;
+
+function showModal(taskId) {
+  taskIdToDelete = taskId;
+  document.getElementById("confirmation-modal").style.display = "block";
+  document.body.style.overflow = "hidden";
+}
+
+function closeModal() {
+  document.getElementById("confirmation-modal").style.display = "none";
+  document.body.style.overflow = "auto";
+}
+
+document
+  .getElementById("confirm-delete-btn")
+  .addEventListener("click", function () {
+    if (taskIdToDelete !== null) {
+      deleteTask(taskIdToDelete);
+      closeModal();
+    }
+  });
 
 document
   .getElementById("task-form")
