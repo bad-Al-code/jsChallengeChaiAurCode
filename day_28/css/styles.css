@@ -218,6 +218,11 @@ nav {
   padding: 10px;
   cursor: pointer;
   border-radius: 5px;
+  transition: background 0.3s;
+}
+
+.remove-item:hover {
+  background: #c9302c;
 }
 
 .cart-summary {
