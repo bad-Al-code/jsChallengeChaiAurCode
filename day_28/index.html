@@ -17,7 +17,9 @@
             <li><a href="#about">About</a></li>
             <li><a href="#contact">Contact</a></li>
           </ul>
-          <a href="#cart" class="cart-icon">Cart</a>
+          <a href="#cart" class="cart-icon"
+            >Cart (<span id="cart-count">0</span>)</a
+          >
         </div>
       </nav>
     </header>
@@ -43,11 +45,11 @@
       <section id="cart" class="cart-section">
         <div class="container">
           <h2>Shopping Cart</h2>
-          <div class="cart-items">
+          <div class="cart-items" id="cart-items">
             <!-- Cart items -->
           </div>
           <div class="cart-summary">
-            <h3>Total: $0.00</h3>
+            <h3>Total: $<span id="cart-total">0.00</span></h3>
             <button class="checkout">Checkout</button>
           </div>
         </div>
