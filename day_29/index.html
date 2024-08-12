@@ -21,19 +21,36 @@
     <main>
       <section id="home">
         <h2>Home</h2>
-        <!-- Feed -->
+        <div class="post-container">
+          <form id="post-form">
+            <h3>Create a New Post</h3>
+            <label for="post-title">Title:</label>
+            <input type="text" id="post-title" name="post-title" required />
+            <label for="post-content">Content:</label>
+            <textarea
+              id="post-content"
+              name="post-content"
+              rows="4"
+              required
+            ></textarea>
+            <button type="submit">Post</button>
+          </form>
+          <div id="posts">
+            <!-- Posts-->
+          </div>
+        </div>
       </section>
       <section id="notifications">
         <h2>Notifications</h2>
-        <!-- Notifications -->
+        <!-- Notifications-->
       </section>
       <section id="messages">
         <h2>Messages</h2>
-        <!-- Messages -->
+        <!-- Messages-->
       </section>
       <section id="profile">
         <h2>Profile</h2>
-        <!-- Profile -->
+        <!-- Profile-->
       </section>
     </main>
     <footer>
