@@ -229,6 +229,32 @@ nav {
   margin-bottom: 10px;
 }
 
+/* Quantity Controls */
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.quantity-controls button {
+  background: #007bff;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background 0.3s;
+}
+
+.quantity-controls button:hover {
+  background: #0056b3;
+}
+
+.quantity-controls .quantity {
+  margin: 0 10px;
+  font-size: 1.1em;
+}
+
 .checkout {
   background: #333;
   color: #fff;

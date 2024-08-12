@@ -66,8 +66,12 @@ document.addEventListener("DOMContentLoaded", () => {
                     <h3>${item.name}</h3>
                     <p>${item.description}</p>
                     <p class="price">$${item.price.toFixed(2)}</p>
-                    <p class="quantity">Quantity: ${item.quantity}</p>
                     <p class="item-total">Total: $${itemTotal.toFixed(2)}</p>
+                    <div class="quantity-controls">
+                        <button class="decrease-quantity" data-name="${item.name}">-</button>
+                        <span class="quantity">${item.quantity}</span>
+                        <button class="increase-quantity" data-name="${item.name}">+</button>
+                    </div>
                     <button class="remove-item" data-name="${item.name}">Remove</button>
                 </div>
             `;
@@ -84,6 +88,34 @@ document.addEventListener("DOMContentLoaded", () => {
         removeFromCart(name);
       });
     });
+
+    document.querySelectorAll(".increase-quantity").forEach((button) => {
+      button.addEventListener("click", () => {
+        const name = button.getAttribute("data-name");
+        changeQuantity(name, 1);
+      });
+    });
+
+    document.querySelectorAll(".decrease-quantity").forEach((button) => {
+      button.addEventListener("click", () => {
+        const name = button.getAttribute("data-name");
+        changeQuantity(name, -1);
+      });
+    });
+  }
+
+  function changeQuantity(name, amount) {
+    const product = cart.find((item) => item.name === name);
+
+    if (product) {
+      product.quantity += amount;
+
+      if (product.quantity <= 0) {
+        removeFromCart(name);
+      } else {
+        updateCartDisplay();
+      }
+    }
   }
 
   function removeFromCart(name) {
