@@ -23,14 +23,19 @@ document.addEventListener("DOMContentLoaded", () => {
       postElement.className = "post";
 
       postElement.innerHTML = `
-                <h4>${post.title}</h4>
-                <p>${post.content}</p>
-                ${post.image ? `<img src="${post.image}" alt="Post Image" style="max-width: 100%;">` : ""}
-            `;
+        <div class="post-header">
+          <span class="post-username">${post.username}</span>
+          <span class="post-timestamp">${post.timestamp}</span>
+        </div>
+        <h4>${post.title}</h4>
+        <p>${post.content}</p>
+        ${post.image ? `<img src="${post.image}" alt="Post Image" style="max-width: 100%;">` : ""}
+      `;
 
       postsContainer.appendChild(postElement);
     });
   }
+
   renderPosts();
 
   function handlePostSubmission(event) {
@@ -40,6 +45,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const content = document.getElementById("post-content").value;
     const imageInput = document.getElementById("post-image");
     const imageFile = imageInput.files[0];
+    const username =
+      JSON.parse(localStorage.getItem("user")).username || "Anonymous";
+    const timestamp = new Date().toLocaleString();
 
     let imageUrl = "";
 
@@ -47,18 +55,24 @@ document.addEventListener("DOMContentLoaded", () => {
       const reader = new FileReader();
       reader.onload = function (e) {
         imageUrl = e.target.result;
-        createPostObject(title, content, imageUrl);
+        createPostObject(title, content, imageUrl, username, timestamp);
       };
       reader.readAsDataURL(imageFile);
     } else {
-      createPostObject(title, content);
+      createPostObject(title, content, "", username, timestamp);
     }
 
     postForm.reset();
   }
 
-  function createPostObject(title, content, imageUrl = "") {
-    const newPost = { title, content, image: imageUrl };
+  function createPostObject(
+    title,
+    content,
+    imageUrl = "",
+    username,
+    timestamp,
+  ) {
+    const newPost = { title, content, image: imageUrl, username, timestamp };
 
     posts.push(newPost);
     localStorage.setItem("posts", JSON.stringify(posts));
