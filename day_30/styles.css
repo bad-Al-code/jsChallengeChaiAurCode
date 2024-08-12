@@ -88,3 +88,64 @@ footer {
   background-color: #000;
   color: #fff;
 }
+
+#user-profile {
+  margin: 20px 0;
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+#profile-picture {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.profile-info p {
+  margin: 5px 0;
+}
+
+#edit-profile-form {
+  display: flex;
+  flex-direction: column;
+}
+
+#edit-profile-form label {
+  margin: 10px 0 5px;
+}
+
+#edit-profile-form input[type="text"],
+#edit-profile-form input[type="email"] {
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+#edit-profile-form input[type="file"] {
+  margin-bottom: 10px;
+}
+
+#save-profile-button,
+#cancel-profile-button {
+  padding: 10px 15px;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+#cancel-profile-button {
+  background-color: #ccc;
+  color: #333;
+}

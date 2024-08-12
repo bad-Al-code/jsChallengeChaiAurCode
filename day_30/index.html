@@ -25,11 +25,39 @@
         <!-- Social media feed content -->
       </section>
 
-      <section id="profile">
-        <h2>Profile</h2>
-        <!-- User profile content -->
-      </section>
+      <section id="user-profile">
+        <h2>User Profile</h2>
+        <div class="profile-container">
+          <img
+            id="profile-picture"
+            src="default-profile.png"
+            alt="Profile Picture"
+          />
+          <div class="profile-info">
+            <p><strong>Username:</strong> <span id="username">JonSnow</span></p>
+            <p>
+              <strong>Email:</strong>
+              <span id="email">jonsnow@winterfell.com</span>
+            </p>
+          </div>
+        </div>
 
+        <button id="edit-profile-button">Edit Profile</button>
+
+        <form id="edit-profile-form" style="display: none">
+          <label for="new-username">Username:</label>
+          <input type="text" id="new-username" value="JonSnow" />
+
+          <label for="new-email">Email:</label>
+          <input type="email" id="new-email" value="jonsnow@winterfell.com" />
+
+          <label for="new-profile-picture">Profile Picture:</label>
+          <input type="file" id="new-profile-picture" />
+
+          <button type="button" id="save-profile-button">Save Changes</button>
+          <button type="button" id="cancel-profile-button">Cancel</button>
+        </form>
+      </section>
       <section id="settings">
         <h2>Settings</h2>
         <!-- Settings content -->
@@ -39,5 +67,7 @@
     <footer>
       <p>&copy; 2024 Social Media Dashboard. All rights reserved.</p>
     </footer>
+
+    <script src="script.js"></script>
   </body>
 </html>
