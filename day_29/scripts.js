@@ -46,6 +46,9 @@ document.addEventListener("DOMContentLoaded", () => {
       postElement
         .querySelector(".like-btn")
         .addEventListener("click", () => handleLike(index));
+      postElement
+        .querySelector(".comment-btn")
+        .addEventListener("click", () => handleComment(index));
       postsContainer.appendChild(postElement);
     });
   }
@@ -57,6 +60,18 @@ document.addEventListener("DOMContentLoaded", () => {
     posts[index].likes += 1;
     localStorage.setItem("posts", JSON.stringify(posts));
     renderPosts();
+  }
+
+  function handleComment(index) {
+    const comment = prompt("Enter your comment:");
+    if (comment) {
+      if (!Array.isArray(posts[index].comments)) {
+        posts[index].comments = [];
+      }
+      posts[index].comments.push(comment);
+      localStorage.setItem("posts", JSON.stringify(posts));
+      renderPosts();
+    }
   }
 
   renderPosts();
