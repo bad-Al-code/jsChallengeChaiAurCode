@@ -8,6 +8,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const checkoutButton = document.getElementById("checkout-button");
   const checkoutModal = document.getElementById("checkout-modal");
   const modalClose = document.getElementById("modal-close");
+  const placeOrderButton = document.getElementById("place-order-button");
+  const checkoutForm = document.getElementById("checkout-form");
 
   let cart = [];
 
@@ -130,6 +132,14 @@ document.addEventListener("DOMContentLoaded", () => {
     updateCartDisplay();
   }
 
+  paymentMethodSelect.addEventListener("change", () => {
+    if (paymentMethodSelect.value === "credit-card") {
+      creditCardDetails.style.display = "block";
+    } else {
+      creditCardDetails.style.display = "none";
+    }
+  });
+
   function updateCheckoutButton() {
     checkoutButton.disabled = cart.length === 0;
   }
@@ -142,23 +152,53 @@ document.addEventListener("DOMContentLoaded", () => {
     checkoutModal.style.display = "none";
   }
 
+  function handleFormSubmission(event) {
+    event.preventDefault();
+    const formData = new FormData(checkoutForm);
+    const formObject = Object.fromEntries(formData.entries());
+
+    const orderDetails = `
+      <h2>Order Confirmation</h2>
+      <p><strong>Customer Name:</strong> ${formObject["name"]}</p>
+      <p><strong>Email:</strong> ${formObject["email"]}</p>
+      <p><strong>Address:</strong> ${formObject["address"]}</p>
+      <p><strong>Payment Method:</strong> ${formObject["payment-method"]}</p>
+      <h3>Order Summary</h3>
+      ${cart
+        .map(
+          (item) => `
+        <p>${item.name} - ${item.quantity} x $${item.price.toFixed(2)} = $${(item.price * item.quantity).toFixed(2)}</p>
+      `,
+        )
+        .join("")}
+      <p><strong>Total:</strong> $${cartTotal.textContent}</p>
+    `;
+
+    // Update modal content with the confirmation message
+    checkoutModal.innerHTML = `
+      <div class="modal-content">
+        <span id="modal-close" class="close">&times;</span>
+        <div id="confirmation-message">${orderDetails}</div>
+      </div>
+    `;
+
+    // Re-add event listener for the close button
+    document.getElementById("modal-close").addEventListener("click", hideModal);
+
+    checkoutModal.style.display = "block";
+    cart = [];
+    updateCartDisplay();
+  }
+
   checkoutButton.addEventListener("click", showModal);
-
   modalClose.addEventListener("click", hideModal);
-
   window.addEventListener("click", (event) => {
     if (event.target === checkoutModal) {
       hideModal();
     }
   });
 
-  paymentMethodSelect.addEventListener("change", () => {
-    if (paymentMethodSelect.value === "credit-card") {
-      creditCardDetails.style.display = "block";
-    } else {
-      creditCardDetails.style.display = "none";
-    }
-  });
+  placeOrderButton.addEventListener("click", handleFormSubmission);
 
   updateCheckoutButton();
 });
