@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task Management App</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Task Management App</h1>
+      </header>
+
+      <main>
+        <section id="task-input">
+          <h2>Add a New Task</h2>
+          <form id="task-form">
+            <div class="form-group">
+              <label for="task-title">Title</label>
+              <input
+                type="text"
+                id="task-title"
+                name="task-title"
+                placeholder="Enter task title"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="task-desc">Description</label>
+              <textarea
+                id="task-desc"
+                name="task-desc"
+                placeholder="Enter task description"
+                required
+              ></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="task-due-date">Due Date</label>
+              <input
+                type="date"
+                id="task-due-date"
+                name="task-due-date"
+                required
+              />
+            </div>
+
+            <button type="submit" id="add-task">Add Task</button>
+          </form>
+        </section>
+
+        <div id="confirmation-modal" class="modal">
+          <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <p>Are you sure you want to delete this task?</p>
+            <button id="confirm-delete-btn">Yes, delete</button>
+            <button onclick="closeModal()">Cancel</button>
+          </div>
+        </div>
+
+        <section id="task-list">
+          <h2>Tasks</h2>
+          <ul id="tasks">
+            <!-- Task  -->
+          </ul>
+        </section>
+      </main>
+
+      <footer>
+        <p>&copy; 2024 Task Management App</p>
+      </footer>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
