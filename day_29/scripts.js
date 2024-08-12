@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", () => {
   console.log("Social Media Dashboard Loaded");
 
   const loginForm = document.getElementById("login-form");
-
   if (loginForm) {
     loginForm.addEventListener("submit", handleLogin);
   }
@@ -17,14 +16,12 @@ document.addEventListener("DOMContentLoaded", () => {
   let posts = JSON.parse(localStorage.getItem("posts")) || [];
 
   function renderPosts() {
-    console.log(posts);
     postsContainer.innerHTML = "";
     posts.forEach((post, index) => {
       const postElement = document.createElement("div");
       postElement.className = "post";
 
       const likeText = post.likes > 0 ? `Like (${post.likes})` : "Like";
-
       const commentsHTML = Array.isArray(post.comments)
         ? post.comments.map((comment) => `<p>${comment}</p>`).join("")
         : "";
@@ -46,17 +43,20 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
       `;
 
+      postElement
+        .querySelector(".like-btn")
+        .addEventListener("click", () => handleLike(index));
       postsContainer.appendChild(postElement);
     });
+  }
 
-    // Attach event listeners to the like and comment buttons
-    document.querySelectorAll(".like-btn").forEach((button) => {
-      button.addEventListener("click", handleLike);
-    });
-
-    document.querySelectorAll(".comment-btn").forEach((button) => {
-      button.addEventListener("click", handleComment);
-    });
+  function handleLike(index) {
+    if (posts[index].likes === undefined) {
+      posts[index].likes = 0;
+    }
+    posts[index].likes += 1;
+    localStorage.setItem("posts", JSON.stringify(posts));
+    renderPosts();
   }
 
   renderPosts();
@@ -68,9 +68,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const content = document.getElementById("post-content").value;
     const imageInput = document.getElementById("post-image");
     const imageFile = imageInput.files[0];
-    const username =
-      JSON.parse(localStorage.getItem("user")).username || "Anonymous";
-    const timestamp = new Date().toLocaleString();
 
     let imageUrl = "";
 
@@ -78,29 +75,23 @@ document.addEventListener("DOMContentLoaded", () => {
       const reader = new FileReader();
       reader.onload = function (e) {
         imageUrl = e.target.result;
-        createPostObject(title, content, imageUrl, username, timestamp);
+        createPostObject(title, content, imageUrl);
       };
       reader.readAsDataURL(imageFile);
     } else {
-      createPostObject(title, content, "", username, timestamp);
+      createPostObject(title, content);
     }
 
     postForm.reset();
   }
 
-  function createPostObject(
-    title,
-    content,
-    imageUrl = "",
-    username,
-    timestamp,
-  ) {
+  function createPostObject(title, content, imageUrl = "") {
     const newPost = {
       title,
       content,
       image: imageUrl,
-      username,
-      timestamp,
+      username: "YourUsername",
+      timestamp: new Date().toLocaleString(),
       likes: 0,
       comments: [],
     };
@@ -109,24 +100,6 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem("posts", JSON.stringify(posts));
 
     renderPosts();
-  }
-
-  function handleLike(event) {
-    const index = event.target.dataset.index;
-    posts[index].likes++;
-    localStorage.setItem("posts", JSON.stringify(posts));
-    renderPosts();
-  }
-
-  function handleComment(event) {
-    const index = event.target.dataset.index;
-    const comment = prompt("Enter your comment:");
-
-    if (comment) {
-      posts[index].comments.push(comment);
-      localStorage.setItem("posts", JSON.stringify(posts));
-      renderPosts();
-    }
   }
 });
 
