@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Social Media Dashboard</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Social Media Dashboard</h1>
+      <nav>
+        <!-- Navigation Links -->
+      </nav>
+    </header>
+
+    <main>
+      <section id="overview">
+        <h2>Overview</h2>
+        <!-- Overview content -->
+      </section>
+
+      <section id="feed">
+        <h2>Feed</h2>
+        <!-- Social media feed content -->
+      </section>
+
+      <!-- Profile Section -->
+      <section id="user-profile" style="display: none">
+        <div class="profile-info">
+          <img
+            id="profile-picture"
+            src="default-profile.png"
+            alt="Profile Picture"
+          />
+          <h2 id="username">Username</h2>
+          <p id="email">Email</p>
+          <button id="edit-profile-button">Edit Profile</button>
+        </div>
+
+        <!-- Edit Profile Form -->
+        <form id="edit-profile-form" style="display: none">
+          <label for="new-username">New Username:</label>
+          <input type="text" id="new-username" />
+
+          <label for="new-email">New Email:</label>
+          <input type="email" id="new-email" />
+
+          <label for="new-profile-picture">New Profile Picture:</label>
+          <input type="file" id="new-profile-picture" />
+
+          <button type="button" id="update-profile-button">
+            Update Profile
+          </button>
+          <button type="button" id="cancel-profile-button">Cancel</button>
+        </form>
+      </section>
+
+      <section id="user-auth">
+        <h2>Register</h2>
+        <form id="register-form">
+          <label for="register-username">Username:</label>
+          <input type="text" id="register-username" required />
+
+          <label for="register-email">Email:</label>
+          <input type="email" id="register-email" required />
+
+          <label for="register-password">Password:</label>
+          <input type="password" id="register-password" required />
+
+          <button type="button" id="register-button">Register</button>
+        </form>
+        <h2>Login</h2>
+        <form id="login-form">
+          <label for="login-username">Username:</label>
+          <input type="text" id="login-username" required />
+
+          <label for="login-password">Password:</label>
+          <input type="password" id="login-password" required />
+
+          <button type="button" id="login-button">Login</button>
+        </form>
+      </section>
+
+      <section id="settings">
+        <h2>Settings</h2>
+        <!-- Settings content -->
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2024 Social Media Dashboard. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
