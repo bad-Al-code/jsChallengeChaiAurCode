@@ -7,18 +7,36 @@ function handleFormSubmit(event) {
   const description = document.getElementById("task-desc").value;
   const dueDate = document.getElementById("task-due-date").value;
 
-  const newTask = {
-    title,
-    description,
-    dueDate,
-    id: Date.now(),
-  };
+  const editingTaskId = document
+    .getElementById("task-form")
+    .getAttribute("data-editing-task-id");
 
-  tasks.push(newTask);
+  if (editingTaskId) {
+    updateTask(editingTaskId, { title, description, dueDate });
+    document
+      .getElementById("task-form")
+      .removeAttribute("data-editing-task-id");
+  } else {
+    const newTask = {
+      title,
+      description,
+      dueDate,
+      id: Date.now(),
+    };
 
+    tasks.push(newTask);
+  }
   displayTasks();
 
   document.getElementById("task-form").reset();
+}
+
+function updateTask(taskId, updatedDetails) {
+  const taskIndex = tasks.findIndex((task) => task.id === parseInt(taskId));
+
+  if (taskIndex > -1) {
+    tasks[taskIndex] = { ...tasks[taskIndex], ...updatedDetails };
+  }
 }
 
 function displayTasks() {
