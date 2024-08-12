@@ -27,7 +27,13 @@ function displayTasks() {
 
   tasks.forEach((task) => {
     const taskItem = document.createElement("li");
-    taskItem.textContent = `${task.title} - ${task.description} (Due: ${task.dueDate})`;
+    taskItem.className = "task-item";
+
+    taskItem.innerHTML = `
+            <h3>${task.title}</h3>
+            <p>${task.description}</p>
+            <small>Due Date: ${task.dueDate}</small>
+        `;
     taskList.appendChild(taskItem);
   });
 }
