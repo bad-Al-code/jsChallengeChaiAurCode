@@ -17,10 +17,17 @@ document.addEventListener("DOMContentLoaded", () => {
   let posts = JSON.parse(localStorage.getItem("posts")) || [];
 
   function renderPosts() {
+    console.log(posts);
     postsContainer.innerHTML = "";
-    posts.forEach((post) => {
+    posts.forEach((post, index) => {
       const postElement = document.createElement("div");
       postElement.className = "post";
+
+      const likeText = post.likes > 0 ? `Like (${post.likes})` : "Like";
+
+      const commentsHTML = Array.isArray(post.comments)
+        ? post.comments.map((comment) => `<p>${comment}</p>`).join("")
+        : "";
 
       postElement.innerHTML = `
         <div class="post-header">
@@ -30,9 +37,25 @@ document.addEventListener("DOMContentLoaded", () => {
         <h4>${post.title}</h4>
         <p>${post.content}</p>
         ${post.image ? `<img src="${post.image}" alt="Post Image" style="max-width: 100%;">` : ""}
+        <div class="post-actions">
+          <button class="like-btn" data-index="${index}">${likeText}</button>
+          <button class="comment-btn" data-index="${index}">Comment</button>
+        </div>
+        <div class="comments-section">
+          ${commentsHTML}
+        </div>
       `;
 
       postsContainer.appendChild(postElement);
+    });
+
+    // Attach event listeners to the like and comment buttons
+    document.querySelectorAll(".like-btn").forEach((button) => {
+      button.addEventListener("click", handleLike);
+    });
+
+    document.querySelectorAll(".comment-btn").forEach((button) => {
+      button.addEventListener("click", handleComment);
     });
   }
 
@@ -72,12 +95,38 @@ document.addEventListener("DOMContentLoaded", () => {
     username,
     timestamp,
   ) {
-    const newPost = { title, content, image: imageUrl, username, timestamp };
+    const newPost = {
+      title,
+      content,
+      image: imageUrl,
+      username,
+      timestamp,
+      likes: 0,
+      comments: [],
+    };
 
     posts.push(newPost);
     localStorage.setItem("posts", JSON.stringify(posts));
 
     renderPosts();
+  }
+
+  function handleLike(event) {
+    const index = event.target.dataset.index;
+    posts[index].likes++;
+    localStorage.setItem("posts", JSON.stringify(posts));
+    renderPosts();
+  }
+
+  function handleComment(event) {
+    const index = event.target.dataset.index;
+    const comment = prompt("Enter your comment:");
+
+    if (comment) {
+      posts[index].comments.push(comment);
+      localStorage.setItem("posts", JSON.stringify(posts));
+      renderPosts();
+    }
   }
 });
 
