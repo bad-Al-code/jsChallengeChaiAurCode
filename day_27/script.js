@@ -75,11 +75,17 @@ function editTask(taskId) {
 }
 
 function deleteTask(taskId) {
-  const taskIndex = tasks.findIndex((task) => task.id === taskId);
+  const confirmation = window.confirm(
+    "Are you sure you want to delete this task?",
+  );
 
-  if (taskIndex > -1) {
-    tasks.splice(taskIndex, 1);
-    displayTasks();
+  if (confirmation) {
+    const taskIndex = tasks.findIndex((task) => task.id === taskId);
+
+    if (taskIndex > -1) {
+      tasks.splice(taskIndex, 1);
+      displayTasks();
+    }
   }
 }
 
