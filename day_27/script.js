@@ -51,8 +51,10 @@ function displayTasks() {
             <h3>${task.title}</h3>
             <p>${task.description}</p>
             <small>Due Date: ${task.dueDate}</small>
-            <button class="edit-task" onclick="editTask(${task.id})">Edit</button>
-            <button class="delete-task" onclick="deleteTask(${task.id})">Delete</button>
+            <div class="button-container">
+                <button class="edit-task" onclick="editTask(${task.id})">Edit</button>
+                <button class="delete-task" onclick="deleteTask(${task.id})">Delete</button>
+            </div>
         `;
     taskList.appendChild(taskItem);
   });
