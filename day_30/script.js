@@ -2,12 +2,14 @@ document
   .getElementById("edit-profile-button")
   .addEventListener("click", function () {
     document.getElementById("edit-profile-form").style.display = "block";
+    document.getElementById("edit-profile-button").style.display = "none";
   });
 
 document
   .getElementById("cancel-profile-button")
   .addEventListener("click", function () {
     document.getElementById("edit-profile-form").style.display = "none";
+    document.getElementById("edit-profile-button").style.display = "block";
   });
 
 document

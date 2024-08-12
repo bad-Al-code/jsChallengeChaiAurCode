@@ -149,3 +149,16 @@ footer {
   background-color: #ccc;
   color: #333;
 }
+#edit-profile-button {
+  padding: 10px 15px;
+  background-color: #000; /* Set the background color to black */
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px; /* Optional: Add some margin at the top */
+}
+
+#edit-profile-button:hover {
+  background-color: #333; /* Slightly lighter shade of black on hover */
+}
