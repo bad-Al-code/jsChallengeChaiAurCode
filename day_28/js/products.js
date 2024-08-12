@@ -5,6 +5,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const cartTotal = document.getElementById("cart-total");
   const paymentMethodSelect = document.getElementById("payment-method");
   const creditCardDetails = document.getElementById("credit-card-details");
+  const checkoutButton = document.getElementById("checkout-button");
+  const checkoutModal = document.getElementById("checkout-modal");
+  const modalClose = document.getElementById("modal-close");
 
   let cart = [];
 
@@ -16,12 +19,12 @@ document.addEventListener("DOMContentLoaded", () => {
         productItem.classList.add("product-item");
 
         productItem.innerHTML = `
-                    <img src="${product.imageUrl}" alt="${product.name}">
-                    <h3>${product.name}</h3>
-                    <p>${product.description}</p>
-                    <p class="price">$${product.price.toFixed(2)}</p>
-                    <button class="add-to-cart" data-name="${product.name}" data-price="${product.price}" data-description="${product.description}" data-image="${product.imageUrl}">Add to Cart</button>
-                `;
+          <img src="${product.imageUrl}" alt="${product.name}">
+          <h3>${product.name}</h3>
+          <p>${product.description}</p>
+          <p class="price">$${product.price.toFixed(2)}</p>
+          <button class="add-to-cart" data-name="${product.name}" data-price="${product.price}" data-description="${product.description}" data-image="${product.imageUrl}">Add to Cart</button>
+        `;
 
         productList.appendChild(productItem);
       });
@@ -63,20 +66,20 @@ document.addEventListener("DOMContentLoaded", () => {
       const cartItem = document.createElement("div");
       cartItem.classList.add("cart-item");
       cartItem.innerHTML = `
-                <img src="${item.image}" alt="${item.name}">
-                <div class="cart-item-details">
-                    <h3>${item.name}</h3>
-                    <p>${item.description}</p>
-                    <p class="price">$${item.price.toFixed(2)}</p>
-                    <p class="item-total">Total: $${itemTotal.toFixed(2)}</p>
-                    <div class="quantity-controls">
-                        <button class="decrease-quantity" data-name="${item.name}">-</button>
-                        <span class="quantity">${item.quantity}</span>
-                        <button class="increase-quantity" data-name="${item.name}">+</button>
-                    </div>
-                    <button class="remove-item" data-name="${item.name}">Remove</button>
-                </div>
-            `;
+        <img src="${item.image}" alt="${item.name}">
+        <div class="cart-item-details">
+          <h3>${item.name}</h3>
+          <p>${item.description}</p>
+          <p class="price">$${item.price.toFixed(2)}</p>
+          <p class="item-total">Total: $${itemTotal.toFixed(2)}</p>
+          <div class="quantity-controls">
+            <button class="decrease-quantity" data-name="${item.name}">-</button>
+            <span class="quantity">${item.quantity}</span>
+            <button class="increase-quantity" data-name="${item.name}">+</button>
+          </div>
+          <button class="remove-item" data-name="${item.name}">Remove</button>
+        </div>
+      `;
 
       cartItems.appendChild(cartItem);
     });
@@ -104,6 +107,8 @@ document.addEventListener("DOMContentLoaded", () => {
         changeQuantity(name, -1);
       });
     });
+
+    updateCheckoutButton();
   }
 
   function changeQuantity(name, amount) {
@@ -125,6 +130,28 @@ document.addEventListener("DOMContentLoaded", () => {
     updateCartDisplay();
   }
 
+  function updateCheckoutButton() {
+    checkoutButton.disabled = cart.length === 0;
+  }
+
+  function showModal() {
+    checkoutModal.style.display = "block";
+  }
+
+  function hideModal() {
+    checkoutModal.style.display = "none";
+  }
+
+  checkoutButton.addEventListener("click", showModal);
+
+  modalClose.addEventListener("click", hideModal);
+
+  window.addEventListener("click", (event) => {
+    if (event.target === checkoutModal) {
+      hideModal();
+    }
+  });
+
   paymentMethodSelect.addEventListener("change", () => {
     if (paymentMethodSelect.value === "credit-card") {
       creditCardDetails.style.display = "block";
@@ -132,4 +159,6 @@ document.addEventListener("DOMContentLoaded", () => {
       creditCardDetails.style.display = "none";
     }
   });
+
+  updateCheckoutButton();
 });
