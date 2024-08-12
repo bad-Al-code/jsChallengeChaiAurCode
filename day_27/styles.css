@@ -177,22 +177,29 @@ button[type="submit"]:hover {
   transition:
     transform 0.2s,
     box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 .task-item h3 {
   margin: 0 0 10px;
   font-size: 20px;
   color: #2c3e50;
+  word-wrap: break-word;
 }
 
 .task-item p {
   margin: 0 0 10px;
   font-size: 16px;
   color: #34495e;
+  word-wrap: break-word;
 }
 
 .task-item small {
   color: #7f8c8d;
   font-size: 14px;
+  display: block;
+  margin-bottom: 10px;
 }
 
 .task-item:hover {
@@ -202,6 +209,7 @@ button[type="submit"]:hover {
 
 /* Edit Button Styles */
 .edit-task {
+  align-self: center;
   margin-top: 10px;
   padding: 8px 12px;
   background-color: #3498db;
@@ -210,6 +218,7 @@ button[type="submit"]:hover {
   border-radius: 4px;
   cursor: pointer;
   font-size: 14px;
+  transition: background-color 0.2s;
 }
 
 .edit-task:hover {
