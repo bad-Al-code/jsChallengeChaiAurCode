@@ -94,6 +94,29 @@ footer {
   background-color: #fff;
   padding: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+#user-profile img {
+  border-radius: 50%;
+  margin-bottom: 20px;
+}
+
+#user-profile p {
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+#edit-profile-button,
+#update-profile-button,
+#cancel-profile-button {
+  padding: 10px 15px;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
 }
 
 .profile-container {
@@ -114,20 +137,24 @@ footer {
 }
 
 #edit-profile-form {
+  margin-top: 20px;
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
-
 #edit-profile-form label {
   margin: 10px 0 5px;
 }
 
 #edit-profile-form input[type="text"],
-#edit-profile-form input[type="email"] {
+#edit-profile-form input[type="email"],
+#edit-profile-form input[type="file"] {
   padding: 10px;
   margin-bottom: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  width: 100%;
+  max-width: 300px;
 }
 
 #edit-profile-form input[type="file"] {
