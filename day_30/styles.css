@@ -151,14 +151,48 @@ footer {
 }
 #edit-profile-button {
   padding: 10px 15px;
-  background-color: #000; /* Set the background color to black */
+  background-color: #000;
   color: #fff;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin-top: 20px; /* Optional: Add some margin at the top */
+  margin-top: 20px;
 }
 
 #edit-profile-button:hover {
-  background-color: #333; /* Slightly lighter shade of black on hover */
+  background-color: #333;
+}
+
+#user-auth {
+  margin: 20px 0;
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#user-auth form {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+#user-auth label {
+  margin: 10px 0 5px;
+}
+
+#user-auth input {
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+#register-button,
+#login-button {
+  padding: 10px 15px;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
