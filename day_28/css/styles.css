@@ -165,6 +165,9 @@ nav {
   object-fit: cover;
   margin-right: 15px;
 }
+.cart-item-details {
+  flex: 1;
+}
 
 .cart-item h3 {
   margin: 0;
